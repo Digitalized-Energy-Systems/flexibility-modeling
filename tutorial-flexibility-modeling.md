@@ -7,7 +7,8 @@ This tutorial deals with typical steps to proceed when dealing with flexibility 
 We assume that the user tries to find a suitable model for flexibility, either modeling its own or using existing models.
 
 This tutorial therefore helps to identify the most relevant parameters of a flexibility model, to specify the requirements of the flexibility model, and to categorize it accordingly. Once this is done, and the model can be described in detail, we provide a recommender to help find a suitable existing model. To reduce effort and increase effectiveness, it is recommended to search for existing models before implementing your own. Many models already exist. For this reason, it is better to search for an existing model and make an adjustment instead of implementing your own model. However, if no suitable model exists, the user is ready to implement his own model because he has categorized it accordingly.
-The tutorial is structured as follows. First, we present the relevant parameters, each with their respective categories. Afterwards, is it discussed how the suitable flexibility model can be identified. In the last part, we discuss how to work with the respective model.
+s
+The tutorial is structured as follows. First, we discuss how to prepare for modeling flexibility by getting an overview of the scenario, the requirements and parameters of the flexibiliy model in [the first section](#first). [Section 2](#params) presents relevant parameters for flexibility models, each with their respective categories. Afterwards, in [section 3](#identify), is it discussed how the suitable flexibility model can be identified. In the last part, [section 4](#work) we discuss how to work with the respective model.
 
 ## <a name="first"></a> Get an Overview of the Scenario, the Requirements and Parameters for the Flexibility Model
 
