@@ -96,8 +96,20 @@ Refers to the model's ability to combine multiple smaller units of flexibility r
 ## <a name="identify"></a> 3 Identify a suitable Flexibility Model
 To find the right flexibility model, after getting an overview of the requirements of the scenario, we recommend using our [flexibility model recommender](https://flexibility.offis.de/recommender.php). With this recommender, it is possible to find suitable flexibility models according to the respective use cases.
 For each of the requirements, it is possible to set the parameter accordingly. While doing so, each parameter can be set as mandatory, desired, or irrelevant. In this way, it is possible to receive recommendations, even if not all requirements are specified yet. Additionally, it can be set how many parameters should match with the models. This makes it very easy to make user-dependent settings.
-After entering the parameters, respective models are shown, sorted by the number of requirements fitting.
+After entering the parameters, respective models are shown, sorted by the number of requirements fitting. A step-by-step guide is discussed in the following. For a more detailed guide, please refer to the [help page of the recommender](https://flexibility.offis.de/help.php).
+
+### <a name="identify1"></a> Explore Parameter Options
+Aligned with [section 2](#params), the respective parameter can be chosen in the recommender. Get an overview of the existing options as a first step.
+
+### <a name="identify2"></a> Select Parameters for the Scenario
+Now, select the relevant parameters for the scenario according to your model. While doing this, decide which of the parameters are to be considered as mandatory, desired, or irrelevant. 
+
+### <a name="identify3"></a> Adjust Matching Requirements
+After having entered the information about the parameters, it is possible to select a number of requirements which is desired. For example, if you only want to see the flexibility models that match in 5 or more categories, you can select 5 as the number of minimum matches. If you set the number too high and no model fits your requirements, we recommend to lower the number of matches. Maybe some model exist which fulfill most of your requirements. These models can be used as a first starting point and adapted accordingly. 
+
+### <a name="identify4"></a> Retrieve Matching Flexibility Models
+As a next step, the flexibility model recommender lists all the models from the database that fulfill your selections. Again, if no model is found, try to adjust some setting by having some parameters as optional or by lowering the number of required matches. Flexibility models might also be relevant if they do not fully meet the requirements, e.g. as a possible starting point. The models can be extended or concepts adopted if necessary.
 
 ## <a name="work"></a> 4 Work with the Respective Model
 The recommended models can be used, adapted, and integrated, depending on the actual use case. Some of the models are available open source. We recommend using these and checking for needs to adaption.
-If adaptions or extensions are necessary, we recommend to get in touch with the authors. If, in a special case, no approach fits, the classification according to the previous parameters and the literature provided can help you to develop your own approach.
+If adaptions or extensions are necessary, we recommend to get in touch with the authors. If, in a special case, no approach fits, the classification according to the previous parameters and the literature provided can help you to develop your own approach. The concepts described can be adopted, models can be expanded, e.g. to include other system types, adapted to other time requirements, etc. It is always recommended to build on existing work instead of developing new models. An overview of all [existing models in the database](https://flexibility.offis.de/models.php) can also be helpful for this step. 
