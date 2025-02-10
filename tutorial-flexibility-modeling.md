@@ -11,13 +11,14 @@ s
 The tutorial is structured as follows. First, we discuss how to prepare for modeling flexibility by getting an overview of the scenario, the requirements and parameters of the flexibiliy model in [the first section](#first). [Section 2](#params) presents relevant parameters for flexibility models, each with their respective categories. Afterwards, in [section 3](#identify), is it discussed how the suitable flexibility model can be identified. In the last part, [section 4](#work) we discuss how to work with the respective model.
 
 ## <a name="first"></a> 1 Get an Overview of the Scenario, the Requirements and Parameters for the Flexibility Model
-As a first step, in order to find out how to model the flexibility and how to find corresponding methods and fulfill constraints, it is necessary to get an overview of the respective scenario in which the model will be used. What parameters does the model contain? What requirements need to be fulfilled? What constraints does the scenario or the model have? Collect all available information as a first step in order to get a concrete idea of the flexibility model.
+As a first step, in order to find out how to model the flexibility and how to find corresponding methods and fulfill constraints, it is necessary to get an overview of the respective scenario in which the model will be used. What parameters does the model contain? What requirements need to be fulfilled? What constraints does the scenario or the model have? Collect all available information as a first step in order to get a concrete idea of the flexibility model. An example of a scenario could be the integration of a plant model into a Virtual Power Plant (VPP) with the aim of enhancing grid stability while managing uncertainties in renewable energy generation. Which plant is being considered? What are the time requirements? How is the flexibility represented?
 
 ## <a name="params"></a> 2 Categorize the Flexibility Model according to its Parameters
 After having the first idea of the flexibility model, it helps to look even more closely at the parameters. By categorizing the flexibility model according to given parameters from literature and state of the art, you are able to compare the requirements of the model to existing ones. This step helps to get an accurate picture of the flexibility model and to decide how the modeling should look in detail. Are there comparable models that meet the requirements? If not, which concepts are similar and can be adopted? Which parameters need to be added to existing models?
 
-In the following, we describe various parameters to categorize flexibility models.
-It is recommended to get an overview of the requirements of the flexibility model by answering the questions regarding the given categories. For some categories it might not be possible to have an answer at the beginning, however, we recommend trying to fill these requirements as detailed as possible in order to find a suitable flexibility model.
+In the following, we describe various parameters to categorize flexibility models. The parameter were considered from the work of [Lechl et al., 2023: A review of models for energy system flexibility requirements and potentials using the new FLEXBLOX taxonomy](https://doi.org/10.1016/j.rser.2023.113570). For more detailed information, have a look at the respective paper.
+
+It is recommended to get a detailed overview of the requirements of the flexibility model by answering the questions regarding the given categories. For some categories it might not be possible to have an answer at the beginning, however, we recommend trying to fill these requirements as detailed as possible in order to find a suitable flexibility model.
 
 ### <a name="params1"></a> 2.1 Flexibility
 Flexibility can be modeled as potential or as requirements.
@@ -92,14 +93,10 @@ Facilitates the matching of flexibility requirements with flexibility potentials
 ### <a name="params13"></a> 2.13 Aggregation
 Refers to the model's ability to combine multiple smaller units of flexibility resources (like residential batteries, electric vehicles, or demand response participants) into a single, manageable entity. This aggregation allows for more effective coordination and utilization of distributed resources, enhancing their overall impact on grid stability and efficiency. By treating multiple small-scale assets as a unified group, operators can deploy flexibility more strategically, optimizing responses to grid demands and reducing operational complexities.
 
-## <a name="identify"></a> 3 Identify the suitable Flexibility Model
-To find the right flexibility model, after getting an overview of the requirements of the scenario, we recommend using our [flexibility recommender](https://flexibility.offis.de/recommender.php). With this recommender, it is possible to find suitable flexibility models according to the respective use cases.
-For each of the requirements, it is possible to set the parameter accordingly. While doing so,
-each parameter can be set as mandatory, desired, or irrelevant. In this way, it is possible
-to receive recommendations, even if not all requirements are specified yet. Additionally, it can be set how many
-parameters should match with the models. This makes it very easy to make user-dependent settings.
+## <a name="identify"></a> 3 Identify a suitable Flexibility Model
+To find the right flexibility model, after getting an overview of the requirements of the scenario, we recommend using our [flexibility model recommender](https://flexibility.offis.de/recommender.php). With this recommender, it is possible to find suitable flexibility models according to the respective use cases.
+For each of the requirements, it is possible to set the parameter accordingly. While doing so, each parameter can be set as mandatory, desired, or irrelevant. In this way, it is possible to receive recommendations, even if not all requirements are specified yet. Additionally, it can be set how many parameters should match with the models. This makes it very easy to make user-dependent settings.
 After entering the parameters, respective models are shown, sorted by the number of requirements fitting.
-At the moment, x models are integrated into our database.
 
 ## <a name="work"></a> 4 Work with the Respective Model
 The recommended models can be used, adapted, and integrated, depending on the actual use case. Some of the models are available open source. We recommend using these and checking for needs to adaption.
