@@ -11,6 +11,8 @@ s
 The tutorial is structured as follows. First, we discuss how to prepare for modeling flexibility by getting an overview of the scenario, the requirements and parameters of the flexibiliy model in [the first section](#first). [Section 2](#params) presents relevant parameters for flexibility models, each with their respective categories. Afterwards, in [section 3](#identify), is it discussed how the suitable flexibility model can be identified. In the last part, [section 4](#work) we discuss how to work with the respective model.
 
 ## <a name="first"></a> Get an Overview of the Scenario, the Requirements and Parameters for the Flexibility Model
+As a first step, in order to find out how to model the flexibility and how to find corresponding methods and fulfill constraints, it is necessary to get an overview of the respective scenario in which the model will be used. What parameters does the model contain? What requirements need to be fulfilled? What constraints does the scenario or the model have? Collect all available information as a first step in order to get a concrete idea of the flexibility model.
+
 
 ## <a name="params"></a> Categorize the Flexibility Model according to its Parameters
 In the following, we describe various parameters to categorize flexibility models.
