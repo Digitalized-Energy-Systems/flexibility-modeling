@@ -93,7 +93,7 @@ Refers to the model's ability to combine multiple smaller units of flexibility r
 ## <a name="identify"></a> 3 Identify a suitable Flexibility Model
 To find the right flexibility model, after getting an overview of the requirements of the scenario, you can use our [flexibility model recommender](https://flexibility.offis.de/recommender.php). With this recommender, it is possible to find suitable flexibility models according to the respective use cases.
 For each of the requirements, it is possible to set the parameter accordingly. Each parameter can be set as mandatory, desired or irrelevant. This way it is possible to get recommendations even if not all requirements have been specified. It is also possible to specify how many parameters should be matched with the models. This makes it very easy to make user-dependent settings.
-After entering the parameters, the corresponding models are displayed, and sorted by the number of matching requirements. The following is a step-by-step guide. For a more detailed guide, please refer to the [Help Page](https://flexibility.offis.de/help.php).
+After entering the parameters, the corresponding models are displayed, and sorted by the number of matching requirements. The following is a step-by-step guide. For a more detailed guide, please refer to the [help page](https://flexibility.offis.de/help.php).
 
 ### <a name="identify1"></a> 3.1 Explore Parameter Options
 In accordance with [section 2](#params), you can select the corresponding parameter in the recommender. As a first step, get an overview of the available options.
