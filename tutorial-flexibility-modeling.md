@@ -15,6 +15,8 @@ As a first step, in order to find out how to model the flexibility and how to fi
 
 
 ## <a name="params"></a> 2. Categorize the Flexibility Model according to its Parameters
+After having the first idea of the flexibility model, it helps to look even more closely at the parameters. By categorizing the flexibility model according to given parameters from literature and state of the art, you are able to compare the requirements of the model to existing ones. This step helps to get an accurate picture of the flexibility model and to decide how the modeling should look in detail. Are there comparable models that meet the requirements? If not, which concepts are similar and can be adopted? Which parameters need to be added to existing models?
+
 In the following, we describe various parameters to categorize flexibility models.
 It is recommended to get an overview of the requirements of the flexibility model by answering the questions regarding the given categories. For some categories it might not be possible to have an answer at the beginning, however, we recommend trying to fill these requirements as detailed as possible in order to find a suitable flexibility model.
 
