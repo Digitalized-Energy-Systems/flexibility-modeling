@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kompakte Konfigurationsspeicherung</title>
+    <title>Configuration Saving</title>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const configInput = document.getElementById("configCode");
             const checkboxes = document.querySelectorAll("input[type='checkbox']");
             const dropdowns = document.querySelectorAll("select:not([multiple])");
-            const multiSelect = document.getElementById("multiSelect");
+            const multiSelects = document.querySelectorAll("select[multiple]"); // Select all multi-choice boxes
 
             function getConfig() {
                 let configParts = [];
 
-                // Checkboxen speichern (0 oder 1)
+                // Save checkboxes (0 or 1)
                 checkboxes.forEach(cb => configParts.push(cb.checked ? 1 : 0));
 
-                // Dropdowns speichern (Index der gewählten Option)
+                // Save dropdowns (index of selected option)
                 dropdowns.forEach(dd => configParts.push(dd.selectedIndex));
 
-                // Mehrfachauswahl speichern (Summe der gewählten Indizes)
-                let multiSelectValue = Array.from(multiSelect.selectedOptions).reduce((sum, opt) => sum + Math.pow(2, opt.index), 0);
-                configParts.push(multiSelectValue);
+                // Save multiple selection boxes as summed indices (bitmask)
+                multiSelects.forEach(ms => {
+                    let multiSelectValue = Array.from(ms.selectedOptions).reduce((sum, opt) => sum + Math.pow(2, opt.index), 0);
+                    configParts.push(multiSelectValue);
+                });
 
                 return configParts.join("-");
             }
@@ -30,20 +32,22 @@
             function setConfig(code) {
                 let configParts = code.split("-").map(num => parseInt(num, 10));
 
-                if (configParts.length !== checkboxes.length + dropdowns.length + 1) return;
+                if (configParts.length !== checkboxes.length + dropdowns.length + multiSelects.length) return;
 
                 let index = 0;
 
-                // Checkboxen wiederherstellen
+                // Restore checkboxes
                 checkboxes.forEach(cb => cb.checked = configParts[index++] === 1);
 
-                // Dropdowns wiederherstellen
+                // Restore dropdowns
                 dropdowns.forEach(dd => dd.selectedIndex = configParts[index++]);
 
-                // Mehrfachauswahl wiederherstellen
-                let multiSelectValue = configParts[index];
-                Array.from(multiSelect.options).forEach((opt, idx) => {
-                    opt.selected = (multiSelectValue & Math.pow(2, idx)) !== 0;
+                // Restore multiple selections
+                multiSelects.forEach(ms => {
+                    let multiSelectValue = configParts[index++];
+                    Array.from(ms.options).forEach((opt, idx) => {
+                        opt.selected = (multiSelectValue & Math.pow(2, idx)) !== 0;
+                    });
                 });
             }
 
@@ -64,7 +68,7 @@
             function copyToClipboard() {
                 configInput.select();
                 document.execCommand("copy");
-                alert("Konfigurationscode kopiert!");
+                alert("Configuration code copied!");
             }
 
             function shareConfig() {
@@ -72,14 +76,14 @@
                 if (configCode) {
                     let shareURL = window.location.origin + window.location.pathname + "?config=" + encodeURIComponent(configCode);
                     navigator.clipboard.writeText(shareURL).then(() => {
-                        alert("Teilen-Link kopiert! Jetzt kannst du ihn versenden.");
+                        alert("Share Link copied!");
                     });
                 }
             }
 
             checkboxes.forEach(cb => cb.addEventListener("change", updateConfigCode));
             dropdowns.forEach(dd => dd.addEventListener("change", updateConfigCode));
-            multiSelect.addEventListener("change", updateConfigCode);
+            multiSelects.forEach(ms => ms.addEventListener("change", updateConfigCode));
 
             let savedConfig = localStorage.getItem("savedConfig");
             if (savedConfig) {
@@ -102,7 +106,7 @@
     </script>
 </head>
 <body>
-    <h1>Kompakte Konfigurationsspeicherung</h1>
+    <h1>Configuration Saving</h1>
 
     <!-- Checkbox -->
     <div class="form-group">
@@ -111,10 +115,9 @@
         </label>
     </div>
 
-    
-
-    <!-- Dropdown-Menü -->
+    <!-- Dropdown -->
     <div class="form-group">
+        <label for="dropdown">Select an option:</label>
         <select id="dropdown">
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
@@ -124,7 +127,7 @@
         </select>
     </div>
 
-    <!-- Mehrfachauswahl-Box -->
+    <!-- Multiple Choice Box (Asset Types) -->
     <div class="form-group">
         <label for="multiSelect"><b>Asset Types</b></label>
         <br>
@@ -141,7 +144,19 @@
             <option value="vehicles">Electric Vehicles</option>
         </select>
     </div>
-    
+
+    <!-- Multiple Choice Box (Constraints) -->
+    <div class="form-group">
+        <label for="constraints"><b>Constraints</b></label>
+        <br>
+        <small>(hold Ctrl/Cmd to select multiple)</small>
+        <br>
+        <select id="constraints" multiple size="3">
+            <option value="technical">Technical</option>
+            <option value="economic">Economic</option>
+            <option value="service">Service Guarantees</option>
+        </select>
+    </div>
 
     <h2>Configuration code:</h2>
     <input type="text" id="configCode">
