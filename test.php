@@ -392,12 +392,6 @@ $sliderDefault = 9;
             <input type="checkbox" id="toggleVisibility">
             <label for="toggleVisibility">Show Parameter Weights (uncheck for value reset)</label>
           </div>
-
-          <h2>Configuration Code:</h2>
-          <input type="text" id="configCode">
-          <button id="copyButton">📋 Copy</button>
-          <button id="loadButton">🔄 Load</button>
-          <button id="shareButton">🔗 Share</button>
         </div>
         <hr>
         <div>
@@ -412,8 +406,6 @@ $sliderDefault = 9;
             </div>
           <?php endif; ?>
         </div>
-
-
       </div>
     </section>
     <section class="flextree-result">
