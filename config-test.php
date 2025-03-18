@@ -107,7 +107,7 @@
     <!-- Checkbox -->
     <div class="form-group">
         <label for="enableOptions">
-            <input type="checkbox" id="enableOptions"> Aktivieren
+            <input type="checkbox" id="enableOptions"> Multi-time scale
         </label>
     </div>
 
@@ -115,7 +115,6 @@
 
     <!-- Dropdown-Menü -->
     <div class="form-group">
-        <label for="dropdown">Optionen wählen:</label>
         <select id="dropdown">
             <option value="option1">Option 1</option>
             <option value="option2">Option 2</option>
