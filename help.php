@@ -249,31 +249,7 @@ $_SESSION['currentpage'] = 'help';
                             outputs,
                             and
                             constraints on flexibility metrics or predictions.</li>
-                    </ul>
-                    <h2>Classification Details</h2>
-                    <ul>
-                        <li><strong>Time Series - Cumulative:</strong> Analyzes flexibility over a period by
-                            aggregating
-                            data
-                            to show cumulative potential or requirements.</li>
-                        <li><strong>Time Series - Non-Cumulative:</strong> Examines flexibility potentials or
-                            requirements
-                            at
-                            specific times without accumulating data over time.</li>
-                        <li><strong>Set - Interval:</strong> Represents flexibility within set boundaries defined by
-                            minimum
-                            and maximum values at a specific time.</li>
-                        <li><strong>Set - Polytope - Single-Time-Step:</strong> Defines flexibility as a geometric
-                            shape
-                            in
-                            a
-                            multidimensional space at a single time step, capturing constraints and capabilities.
-                        </li>
-                        <li><strong>Set - Polytope - Multi-Time-Step:</strong> Extends the single-time-step polytope
-                            model
-                            to
-                            cover multiple time steps, providing a broader view of flexibility over time.</li>
-                    </ul>
+                    </ul>                    
                     <h2>Type</h2>
                     <ul>
                         <li><strong>Deterministic</strong>: Using specific, fixed parameters and conditions to

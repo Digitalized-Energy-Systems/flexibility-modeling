@@ -1,57 +1,3 @@
-// Check if dark mode is stored in localStorage
-if (localStorage.getItem('darkMode') === 'enabled') {
-    document.body.classList.add('dark-mode');
-}
-
-// Toggle dark mode on button click
-document.getElementById('darkModeToggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-
-    // Store the user's preference in localStorage
-    if (document.body.classList.contains('dark-mode')) {
-        localStorage.setItem('darkMode', 'enabled');
-    } else {
-        localStorage.removeItem('darkMode');
-    }
-});
-
-function generateModelsOld() {
-    const param_assettypes = Array.from(document.getElementById('assettypes').selectedOptions).map(option => option.value);
-    const param_classification = document.getElementById('classification').value;
-    const param_flexibility = document.getElementById('flexibility').value;
-    const param_type = document.getElementById('type').value;
-    const param_metric = Array.from(document.getElementById('metric').selectedOptions).map(option => option.value);
-    const param_uncertainty = document.getElementById('uncertainty').value;
-    const param_aggregation = document.getElementById('aggregation').value;
-    const param_time = document.getElementById('time').value;
-    const param_resolution = document.getElementById('resolution').value;
-    const param_multitimescale = document.getElementById('multitimescale').value;
-    const param_mediator = document.getElementById('mediator').value;
-    const param_constraints = Array.from(document.getElementById('constraints').selectedOptions).map(option => option.value);
-    const param_sectorcoupling = document.getElementById('sectorcoupling').value;
-
-
-    const userInput = {
-        param_assettypes,
-        param_classification,
-        param_flexibility,
-        param_type,
-        param_metric,
-        param_uncertainty,
-        param_aggregation,
-        param_time,
-        param_resolution,
-        param_multitimescale,
-        param_mediator,
-        param_constraints,
-        param_sectorcoupling
-    };
-
-    const matchedModels = filterModels(userInput, flexmodels);
-
-    displayModels(matchedModels, userInput);
-}
-
 function generateModels() {
     const userInput = {
         param_assettypes: {
@@ -123,11 +69,10 @@ function generateModels() {
     };
 
     const matchedModels = filterModels(userInput, flexmodels);
+    window.currentModels = matchedModels;
+    window.currentUserInput = userInput;
     displayModels(matchedModels, userInput);
 }
-
-
-
 // Eliminate those models that have less matches than the value chose by the user
 function filterModels(userInput, flexmodels) {
     let totalWeight = 0;
@@ -361,18 +306,7 @@ function filterModels(userInput, flexmodels) {
 
         return matches >= sliderValue; // Only return models with this number of matches
     });
-
 }
-
-
-function calculateWeightCoefficient(matches) {
-    const inputElement = document.getElementById('flexibilityWeight');
-    const inputValue = parseFloat(inputElement.value);
-    if (!isNaN(inputValue)) {
-        return ((matches / 13) * 100).toFixed(2);
-    }
-}
-
 function displayModels(models, userInput) {
     const modelsContainer = document.getElementById('modelsContainer');
     modelsContainer.innerHTML = ''; // Clear previous models
@@ -504,36 +438,23 @@ function displayModels(models, userInput) {
             const propertyElement = document.createElement('p');
             propertyElement.classList.add('model-content');
 
-            let label;
-            if (key === 'param_assettypes') {
-                label = 'Asset Types';
-            } else if (key === 'param_mediator') {
-                label = 'Mediator';
-            } else if (key === 'param_sectorcoupling') {
-                label = 'Sector Coupling';
-            } else if (key === 'param_multitimescale') {
-                label = 'Multi-time-scale';
-            } else if (key === 'param_metric') {
-                label = 'Metric';
-            } else if (key === 'param_type') {
-                label = 'Type';
-            } else if (key === 'param_aggregation') {
-                label = 'Aggregation';
-            } else if (key === 'param_time') {
-                label = 'Time';
-            } else if (key === 'param_resolution') {
-                label = 'Resolution';
-            } else if (key === 'param_classification') {
-                label = 'Classification';
-            } else if (key === 'param_constraints') {
-                label = 'Constraints';
-            } else if (key === 'param_flexibility') {
-                label = 'Flexibility';
-            } else if (key === 'param_uncertainty') {
-                label = 'Uncertainty';
-            } else {
-                label = `${key.charAt(0).toUpperCase() + key.slice(1)}`;
-            }
+            const labelMap = {
+                param_flexibility: 'Flexibility',
+                param_assettypes: 'Asset Types',
+                param_classification: 'Classification',
+                param_type: 'Type',
+                param_time: 'Time',
+                param_resolution: 'Resolution',
+                param_metric: 'Metric',
+                param_constraints: 'Constraints',
+                param_sectorcoupling: 'Sector Coupling',
+                param_multitimescale: 'Multi-time-scale',
+                param_mediator: 'Mediator',
+                param_uncertainty: 'Uncertainty',
+                param_aggregation: 'Aggregation'
+            };
+
+            const label = labelMap[key] ?? key.replace('param_', '').replace(/_/g, ' ');
 
             const labelElement = document.createElement('span');
             labelElement.textContent = `${label}: `;
@@ -699,29 +620,6 @@ function displayModels(models, userInput) {
                 }
             }
 
-            // Process key if it has multiple entries (asset types, metric, constraints)
-            /*
-             if (Array.isArray(userInput[key])) {
-                 // Check if model[key] exists and is an array before checking every element
-                 isMatch = model[key] &&  userInput[key].every(option => model[key].includes(option));
-             }
-              else {
-                 // Check for special case where "no" in user input and "yes" in model is considered a match
-                 if (userInput[key] === "no" && model[key] === "yes") {
-                     isMatch = true;
-                 } else if ((userInput[key] === "potential" || userInput[key] === "requirement") && model[key] === "both") {
-                     isMatch = true;
-                 } else if (userInput[key] === "any"  && (model[key] === "short-term" || model[key] === "long-term")) {
-                     isMatch = true;
-                 } else if (userInput[key] === "none"  && (model[key] === "heat" || model[key] === "gas" || model[key] === "both")) {
-                     isMatch = true;
-                 } else {
-                     // Regular match condition
-                     isMatch = userInput[key] === model[key];
-                 }
-             }
-*/
-
             // Apply the matching or non-matching class based on the isMatch result
             if (isMatch) {
                 valueElement.classList.add('matching');
@@ -781,8 +679,6 @@ function displayModels(models, userInput) {
             divContainer.appendChild(linkElement);
         }
 
-
-
         modelElement.appendChild(divContainer);
         modelsContainer.appendChild(modelElement);
 
@@ -797,6 +693,153 @@ function displayModels(models, userInput) {
         });
     });
 }
+
+function generatePdfContent(models, userInput) {
+    const now = new Date().toLocaleString();
+    const configCode = document.getElementById('configCode')?.value || '';
+    const configUrl = `${window.location.origin}${window.location.pathname}?code=${configCode}`;
+    const baseUrl = 'https://flexibility.offis.de/recommender.php';
+    const fullUrl = `${baseUrl}?c=${configCode}`;
+
+    const content = [
+        { text: 'FlexModels Recommendations', style: 'header' },
+        { text: `Generated: ${now}`, style: 'subheader' },
+        {
+            text: [
+                { text: 'Configuration: ', bold: true },
+                {
+                    text: fullUrl,
+                    link: fullUrl,
+                    color: 'blue',
+                    decoration: 'underline'
+                }
+            ],
+            margin: [0, 5, 0, 15]
+        },
+    ];
+
+    models.forEach((model, index) => {
+        content.push(
+            { text: `${index + 1}. ${model.authors} (${model.year}) - ${model.matches} matches`, style: 'title' }
+        );
+
+        if (model.title) content.push({ text: `Publication: ${model.title}`, style: 'info' });
+        if (model.authors) content.push({ text: `Authors: ${model.authors}`, style: 'info' });
+        if (model.usecase) content.push({ text: `Use Case: ${model.usecase}`, style: 'info' });
+        if (model.methodology) content.push({ text: `Methodology: ${model.methodology}`, style: 'info' });
+
+        const parameters = [
+            'param_flexibility', 'param_assettypes', 'param_classification', 'param_type',
+            'param_time', 'param_resolution', 'param_metric', 'param_constraints',
+            'param_sectorcoupling', 'param_multitimescale', 'param_mediator', 'param_uncertainty', 'param_aggregation'
+        ];
+
+        const labels = {
+            param_flexibility: 'Flexibility',
+            param_assettypes: 'Asset Types',
+            param_classification: 'Classification',
+            param_type: 'Type',
+            param_time: 'Time',
+            param_resolution: 'Resolution',
+            param_metric: 'Metric',
+            param_constraints: 'Constraints',
+            param_sectorcoupling: 'Sector Coupling',
+            param_multitimescale: 'Multi-time-scale',
+            param_mediator: 'Mediator',
+            param_uncertainty: 'Uncertainty',
+            param_aggregation: 'Aggregation'
+        };
+
+        const tableBody = parameters.map(key => {
+            const value = Array.isArray(model[key]) ? model[key].join(', ') : model[key];
+            const input = userInput[key];
+            let match = false;
+
+            if (!input || input.check === '2') return null; // skip irrelevant
+
+            if (key === 'param_metric' || key === 'param_constraints' || key === 'param_assettypes') {
+                match = Array.isArray(input.values) && input.values.every(val => (model[key] || []).includes(val));
+            } else if (input.value !== undefined) {
+                match = model[key] === input.value || model[key] === 'both' || model[key] === 'universal';
+            } else {
+                match = model[key] === 'yes' && input.check === '0';
+            }
+
+            return [
+                {
+                    text: match ? '[Match]' : '[No Match]',
+                    alignment: 'center',
+                    color: match ? 'green' : 'red',
+                    width: 40,
+                    bold: true
+                },
+                { text: `${labels[key]}:`, bold: true },
+                { text: value }
+            ];
+        }).filter(row => row !== null); // Remove nulls
+
+        if (tableBody.length > 0) {
+            content.push({
+                table: {
+                    widths: [80, 130, '*'],
+                    body: tableBody
+                },
+                layout: 'noBorders',
+                margin: [0, 5, 0, 10]
+            });
+        }
+
+        if (model.abstract) {
+            content.push({
+                text: `Abstract:\n${model.abstract}`,
+                style: 'abstract'
+            });
+        }
+
+        if (model.link) {
+            content.push({
+                text: model.link,
+                link: model.link,
+                style: 'link'
+            });
+        }
+
+        content.push({ text: ' ', margin: [0, 0, 0, 10] }); // Spacing
+    });
+
+    return content;
+}
+
+document.getElementById('exportPdfButton')?.addEventListener('click', () => {
+    if (typeof pdfMake === 'undefined') {
+        alert("pdfMake is not loaded.");
+        return;
+    }
+
+    const models = window.currentModels || [];
+    const userInput = window.currentUserInput || {};
+
+    if (!models.length) {
+        alert("No models to export.");
+        return;
+    }
+
+    const docDefinition = {
+        content: generatePdfContent(models, userInput),
+        styles: {
+            header: { fontSize: 16, bold: true, margin: [0, 0, 0, 5] },
+            subheader: { fontSize: 10, margin: [0, 0, 0, 10] },
+            title: { fontSize: 12, bold: true, margin: [0, 4, 0, 2] },
+            info: { margin: [0, 2, 0, 0] },
+            abstract: { margin: [0, 5, 0, 10], italics: true },
+            link: { color: 'blue', decoration: 'underline', fontSize: 9 }
+        },
+        pageMargins: [30, 30, 30, 30],
+        defaultStyle: { fontSize: 10 }
+    };
+
+    pdfMake.createPdf(docDefinition).download(`FlexModels_Results_${new Date().toISOString().slice(0, 10)}.pdf`);
+});
 
 // Show Models-Button 
 document.getElementById('generateButton').addEventListener('click', generateModels);
