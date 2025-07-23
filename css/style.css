@@ -24,13 +24,13 @@ h1 {
 }
 
 h2 {
-  font-size:20px;
+  font-size: 20px;
   text-decoration: underline;
   font-weight: bold;
 }
 
 h2.dark-mode {
-  color:orange;
+  color: orange;
 }
 
 h3 {
@@ -67,6 +67,22 @@ h3 {
   /* Links ausgerichteter Text (optional) */
 }
 
+/*** recommender page ***/
+.standard-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  /* Abstand zwischen Buttons */
+  margin-top: 10px;
+}
+
+.standard-buttons .button-default {
+  flex: 1 1 auto;
+  min-width: 120px;
+  max-width: 150px;
+  text-align: center;
+}
+
 .flexmodellist-article {
   display: flex;
   flex-direction: column;
@@ -84,9 +100,12 @@ h3 {
 .tutorial-image {
   display: block;
   margin: 0 auto;
-  border: 4px dashed orange; /* 4px dick, gestrichelt, orange */
-  padding: 5px; /* Optional: Abstand zwischen Bild und Rand */
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow with offset and opacity */
+  border: 4px dashed orange;
+  /* 4px dick, gestrichelt, orange */
+  padding: 5px;
+  /* Optional: Abstand zwischen Bild und Rand */
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+  /* Add shadow with offset and opacity */
 }
 
 
@@ -465,7 +484,8 @@ nav a:hover {
 .input-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;  /* Vertically centers content */
+  justify-content: center;
+  /* Vertically centers content */
 }
 
 .settings-container {
@@ -1511,12 +1531,12 @@ h1 {
 }
 
 #assettypes {
-  height: 190px;
+  height: 220px;
   scrollbar-width: none;
 }
 
 #metric {
-  height: 165px;
+  height: 200px;
   scrollbar-width: none;
 }
 
@@ -1526,9 +1546,60 @@ h1 {
 }
 
 #constraints {
-  height: 70px;
+  height: 80px;
   scrollbar-width: none;
 }
+
+/* Configuration */
+#configCode.valid {
+  background-color: #e6ffed;
+  /* bright green */
+}
+
+#configCode.invalid {
+  background-color: #ffeaea;
+  /* brigt red */
+}
+
+.config-icon {
+  pointer-events: none;
+  color: #aaa;
+}
+
+#configCode.valid+.config-icon {
+  color: #28a745;
+}
+
+#configCode.invalid+.config-icon {
+  color: #dc3545;
+}
+
+#configCode.valid.unsynced {
+  background-color: #fffacc;
+  border-color: #e6d700;
+}
+
+#loadButton:disabled {
+  background-color: #ccc;
+  border-color: #aaa;
+  cursor: not-allowed;
+  color: #666;
+}
+
+#copyButton:disabled {
+  background-color: #ccc;
+  border-color: #aaa;
+  cursor: not-allowed;
+  color: #666;
+}
+
+#shareButton:disabled {
+  background-color: #ccc;
+  border-color: #aaa;
+  cursor: not-allowed;
+  color: #666;
+}
+
 
 /* Buttons and Messages */
 .button-default {

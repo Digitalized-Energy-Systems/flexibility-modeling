@@ -146,21 +146,6 @@ $(document).ready(function () {
     }
   });
 
-  $('#classificationDetailsToggle').popover({
-    html: true, // Enable HTML in the popover
-    trigger: 'focus', // Trigger on focus
-    title: 'Classification', // Title of the popover
-    content: function () {
-      return '<ul>' +
-        '<li><strong>Time Series - Cumulative:</strong> Analyzes flexibility over a period by aggregating data to show cumulative potential or requirements.</li>' +
-        '<li><strong>Time Series - Non-Cumulative:</strong> Examines flexibility potentials or requirements at specific times without accumulating data over time.</li>' +
-        '<li><strong>Set - Interval:</strong> Represents flexibility within set boundaries defined by minimum and maximum values at a specific time.</li>' +
-        '<li><strong>Set - Polytope - Single-Time-Step:</strong> Defines flexibility as a geometric shape in a multidimensional space at a single time step, capturing constraints and capabilities.</li>' +
-        '<li><strong>Set - Polytope - Multi-Time-Step:</strong> Extends the single-time-step polytope model to cover multiple time steps, providing a broader view of flexibility over time.</li>' +
-        '</ul>';
-    }
-  });
-
   $('#sectorcouplingToggle').popover({
     html: true, // Enable HTML in the popover
     trigger: 'focus', // Trigger on focus

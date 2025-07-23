@@ -42,7 +42,7 @@ $sliderDefault = 9;
                   <label class="form-check-label" id="flexibilityCheckboxLabel" for="flexibilityCheck"></label>
                 </div>
               </div>
-              <select id="flexibility" class="form-control">
+              <select id="flexibility" onchange="updateConfigCode()" class="form-control">
                 <option value="potential" selected>Potential</option>
                 <option value="requirement">Requirement</option>
                 <option value="both">Both</option>
@@ -68,7 +68,7 @@ $sliderDefault = 9;
               </div>
               <span style="font-size:10px">(hold Ctrl/Cmd to select
                 multiple)</span>
-              <select id="assettypes" class="form-control" multiple>
+              <select id="assettypes" class="form-control" multiple onchange="updateConfigCode()">
                 <option value="universal" selected>Universal</option>
                 <option value="energy storage systems">Energy Storage Systems</option>
                 <option value="demand response program">Demand Response Program</option>
@@ -98,37 +98,10 @@ $sliderDefault = 9;
                   <label class="form-check-label" id="classificationCheckboxLabel" for="classificationCheck"></label>
                 </div>
               </div>
-              <select id="classification" class="form-control" onchange="toggleClassificationDetails()">
+              <select id="classification" class="form-control">
                 <option value="metric">Metric</option>
                 <option value="machine learning model">Machine Learning Model</option>
                 <option value="envelope">Envelope</option>
-              </select>
-            </div>
-
-            <!-- Classification Details Option Envelope -->
-            <div class="form-group nodisplay" id="classificationDetailsOption">
-              <div class="parameter-header">
-                <div class="parameter-label">
-                  <span id="classificationDetailsToggle" class="info-icon" tabindex="0" data-toggle="popover"
-                    data-trigger="focus" title="ClassificationDetails">
-                    <i class="bi bi-info-circle"></i></span>
-                  <label id="classificationDetailsLabel" for="classificationDetails">Classification Details</label>
-                </div>
-                <input type="text" class="parameter-weight nodisplay" id="classificationDetailsWeight"
-                  name="classificationDetailsWeight" value="10" min="1" max="100" title="Weight of the parameter">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="classificationDetailsCheck" data-state="0"
-                    onchange="toggleTriState('classificationDetails')">
-                  <label class="form-check-label" id="classificationDetailsCheckboxLabel"
-                    for="classificationDetailsCheck"></label>
-                </div>
-              </div>
-              <select id="classificationDetails" class="form-control">
-                <option value="time series - cumulative">Time Series - Cumulative</option>
-                <option value="time series - non-cumulative">Time Series - Non-Cumulative</option>
-                <option value="set - interval">Set - Interval</option>
-                <option value="set - polytope - single-time-step">Set - Polytope - Single-Time-Step</option>
-                <option value="set - polytope - multi-time-step">Set - Polytope - Multi-Time-Step</option>
               </select>
             </div>
 
@@ -178,8 +151,32 @@ $sliderDefault = 9;
               </select>
             </div>
 
+            <!-- Resolution -->
+            <div class="form-group">
+              <div class="parameter-header">
+                <div class="parameter-label">
+                  <span id="resolutionToggle" class="info-icon" tabindex="0" data-toggle="popover" data-trigger="focus"
+                    title="Resolution">
+                    <i class="bi bi-info-circle"></i></span>
+                  <label id="resolutionLabel" for="resolution">Resolution</label>
+                </div>
+                <input type="text" class="parameter-weight hidden" id="resolutionWeight" name="resolutionWeight"
+                  value="10" min="1" max="100" title="Weight of the parameter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="resolutionCheck" data-state="0"
+                    onchange="toggleTriState('resolution')">
+                  <label class="form-check-label" id="resolutionCheckboxLabel" for="resolutionCheck"></label>
+                </div>
+              </div>
+              <select id="resolution" class="form-control">
+                <option value="short-term" selected>Short-term</option>
+                <option value="long-term">Long-term</option>
+                <option value="both">Both</option>
+              </select>
+            </div>
 
           </div>
+
           <!-- 2nd column -->
           <div class="parameters-box">
             <!-- Metric -->
@@ -239,31 +236,6 @@ $sliderDefault = 9;
                 <option value="service guarantees">service guarantees</option>
               </select>
             </div>
-
-            <!-- Resolution -->
-            <div class="form-group">
-              <div class="parameter-header">
-                <div class="parameter-label">
-                  <span id="resolutionToggle" class="info-icon" tabindex="0" data-toggle="popover" data-trigger="focus"
-                    title="Resolution">
-                    <i class="bi bi-info-circle"></i></span>
-                  <label id="resolutionLabel" for="resolution">Resolution</label>
-                </div>
-                <input type="text" class="parameter-weight hidden" id="resolutionWeight" name="resolutionWeight"
-                  value="10" min="1" max="100" title="Weight of the parameter">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="resolutionCheck" data-state="0"
-                    onchange="toggleTriState('resolution')">
-                  <label class="form-check-label" id="resolutionCheckboxLabel" for="resolutionCheck"></label>
-                </div>
-              </div>
-              <select id="resolution" class="form-control">
-                <option value="short-term" selected>Short-term</option>
-                <option value="long-term">Long-term</option>
-                <option value="both">Both</option>
-              </select>
-            </div>
-
 
             <!-- Sector Coupling -->
             <div class="form-group">
@@ -368,7 +340,7 @@ $sliderDefault = 9;
           </div>
         </div>
 
-        <div class="parameter-legend">
+        <small class="parameter-legend">
           Legend:
           <input class="form-check-input" type="checkbox">
           <label class="form-check-label checked">
@@ -379,25 +351,48 @@ $sliderDefault = 9;
           <input class="form-check-input" type="checkbox">
           <label class="form-check-label exclamation">
             irrelevant</label>
-        </div>
+        </small>
 
         <div class="settings-container">
           <h2>Settings</h2>
           <label for="flexibility">Choose the minimum number of matches of desired parameters:</label>
           <div class="slidecontainer">
             <input type="range" min="1" max="13" value="<?= $sliderDefault ?>" class="slider" id="myRange">
-            <p>Value: <span id="demo"></span></p>
+            <p><span id="sliderValue"></span></p>
           </div>
           <div class="showWeightsCheckbox" style="display:none">
             <input type="checkbox" id="toggleVisibility">
             <label for="toggleVisibility">Show Parameter Weights (uncheck for value reset)</label>
           </div>
-        </div>
-        <hr>
-        <div>
-          <div class="form-group">
-            <button id="generateButton">Show Models</button>
 
+          <h2>Configuration Code:</h2>
+          <small style="font-size: 0.8em; color: #555;">
+            You can also load a configuration via <code>?config=...</code> in the URL.
+          </small>
+          <div class="config-wrapper" style="position: relative;">
+            <input type="text" id="configCode" class="form-control" aria-label="Configuration Code">
+            <span id="configCodeStatus" class="config-icon"
+              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 1.2em;"></span>
+          </div>
+
+          <div id="configError" class="text-danger" style="font-size: 0.9em; display: none;"></div>
+          <div id="configSuccess" class="text-success" style="font-size: 0.9em; display: none;"></div>
+          <div id="shareSuccess" class="text-success" style="font-size: 0.9em; display: none; margin-top: 5px;"></div>
+          <div id="copySuccess" class="text-success" style="font-size: 0.9em; display: none; margin-top: 5px;"></div>
+
+          <div class="standard-buttons">
+            <button id="loadButton">🔄 Load</button>
+            <button id="copyButton">📋 Copy</button>
+            <button id="shareButton">🔗 Share</button>
+            <button id="resetButton">↺ Reset</button>
+          </div>
+
+
+        </div>
+        <div>
+          <div class="standard-buttons">
+            <button id="generateButton">🔍 Show Models</button>
+            <button id="exportPdfButton" >📄 Export Results as PDF</button>
           </div>
           <?php if (isset($_SESSION['debug']) && $_SESSION['debug']): ?>
             <div class="form-group">
@@ -406,6 +401,8 @@ $sliderDefault = 9;
             </div>
           <?php endif; ?>
         </div>
+
+
       </div>
     </section>
     <section class="flextree-result">
@@ -438,90 +435,33 @@ $sliderDefault = 9;
 
   <script>
 
-    function toggleClassificationDetails() {
-      var classification = document.getElementById('classification').value;
-      var detailsOption = document.getElementById('classificationDetailsOption');
+    const slider = document.getElementById("myRange");
+    const sliderLabel = document.getElementById("sliderValue");
 
-      if (classification === 'envelope') {
-        detailsOption.classList.remove('nodisplay');
-      } else {
-        detailsOption.classList.add('nodisplay');
-      }
-    }
+    // Initial label when page loads
+    sliderLabel.textContent = `Matching Threshold: ${slider.value} of ${slider.max}`;
 
-    // Toggle visibility of weight
-    document.getElementById('toggleVisibility').addEventListener('change', function () {
-      const elements = document.querySelectorAll('.parameter-weight');
-      elements.forEach(element => {
-        if (this.checked) {
-          element.classList.remove('hidden');
-        } else {
-          element.classList.add('hidden');
-          element.value = 10;
-        }
-      });
+    // Update label when slider is moved
+    slider.addEventListener("input", function () {
+      sliderLabel.textContent = `Matching Threshold: ${this.value} of ${this.max}`;
     });
 
-    // Slider logic
-    var slider = document.getElementById("myRange");
-    var output = document.getElementById("demo");
-    output.innerHTML = slider.value; // Display the default slider value
+    document.addEventListener('DOMContentLoaded', () => {
+      const inputs = [
+        'param_flexibility',
+        'param_assettypes'
+      ];
 
-    // Update the current slider value (each time you drag the slider handle)
-    slider.oninput = function () {
-      output.innerHTML = this.value;
-    }
+      inputs.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.addEventListener('change', updateConfigCode);
+        }
+      });
 
-    function toggleTriState(parameter) {
-      const label = document.getElementById(parameter + 'CheckboxLabel');
-      const checkbox = document.getElementById(parameter + 'Check');
-
-      // Get the current state from the data attribute and convert to an integer
-      let state = parseInt(checkbox.getAttribute('data-state'));
-
-      // Remove all state classes
-      label.classList.remove('checked', 'exclamation');
-
-      // Increment state and wrap around if necessary
-      state = (state + 1) % 3;
-
-      // Apply the new state class
-      if (state === 1) {
-        label.classList.add('checked');
-      } else if (state === 2) {
-        label.classList.add('exclamation');
-      }
-      // Update the data-state attribute with the new state
-      checkbox.setAttribute('data-state', state);
-
-      // Call the function to handle enabling/disabling select fields
-      toggleSelectFlexibility(parameter, state);
-    }
-
-    // JavaScript function to toggle the disabled property of the select field
-    function toggleSelectFlexibility(parameter, state) {
-      var select = document.getElementById(parameter);
-      var selectWeight = document.getElementById(parameter + 'Weight');
-      var selectLabel = document.getElementById(parameter + 'Label');
-      var selectCheckboxLabel = document.getElementById(parameter + 'CheckboxLabel');
-
-      if (state === 0) {
-        if (select) select.disabled = false;
-        selectWeight.disabled = false;
-        selectLabel.style.fontWeight = "normal";
-        selectCheckboxLabel.title = "Parameter is desired"
-      } else if (state === 1) {
-        if (select) select.disabled = false;
-        selectWeight.disabled = false;
-        selectLabel.style.fontWeight = "bold";
-        selectCheckboxLabel.title = "Parameter is mandatory";
-      } else if (state === 2) {
-        if (select) select.disabled = true;
-        selectWeight.disabled = true;
-        selectLabel.style.fontWeight = "normal";
-        selectCheckboxLabel.title = "Parameter is irrelevant"
-      }
-    }
+      // Trigger once at start
+      updateConfigCode();
+    });
 
     document.addEventListener('DOMContentLoaded', () => {
       try {
@@ -541,6 +481,9 @@ $sliderDefault = 9;
 
   <script src="js/script.js"></script>
   <script src="js/tooltips.js"></script>
+  <script src="js/configuration.js"></script>
+  <script src="js/models.js"></script>
+
 </body>
 <?php include $abs_path . '/php/include/footer.php'; ?>
 
