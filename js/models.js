@@ -329,7 +329,6 @@ function displayModels(models, userInput) {
         modelElement.className = 'model';
 
         const authorsElement = document.createElement('h4');
-        // authorsElement.textContent = `${model.authors} (${model.year}) - ${model.matches} matches - ${calculateWeightCoefficient(model.matches)}%`;
         authorsElement.textContent = `${model.authors} (${model.year}) - ${model.matches} matches`;
         authorsElement.classList.add('collapsible'); // Add class for easy selection
         modelElement.appendChild(authorsElement);
@@ -371,7 +370,7 @@ function displayModels(models, userInput) {
             allAuthorsLabel.style.fontWeight = 'bold';
             allAuthorsElement.appendChild(allAuthorsLabel);
 
-            const allAuthorsText = document.createTextNode(model.authors);
+            const allAuthorsText = document.createTextNode(model.authors_full); // show the extended authors list
             allAuthorsElement.appendChild(allAuthorsText);
             allAuthorsElement.classList.add('model-content');
             divContainer.appendChild(allAuthorsElement);

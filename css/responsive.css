@@ -3,6 +3,12 @@
         height: auto;
     }
 
+    /* Slightly tighten the models grid at medium widths */
+    .flexmodellist-header.compact,
+    .row-main {
+        grid-template-columns: 60px 180px 1fr 200px 160px 48px;
+    }
+
     .slider_section {
         padding: 50px 0;
     }
@@ -97,4 +103,41 @@
     .container {
         max-width: 1170px;
     }
+}
+
+/* Responsive rules for models list */
+@media (max-width: 768px) {
+    /* Collapse main row to three columns: Year | Title+Authors | Details */
+    .flexmodellist-header.compact,
+    .row-main {
+        grid-template-columns: 70px 1fr 48px;
+    }
+
+    /* Hide less-important columns in the compact main row to save space */
+    .flexmodellist-header.compact p.usecase,
+    .flexmodellist-header.compact p.methodology,
+    .row-main .usecase,
+    .row-main .methodology {
+        display: none;
+    }
+
+    /* Make authors and title align well inside the single large column */
+    .row-main .authors,
+    .row-main .title {
+        grid-column: 2 / 3;
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Stack details into a single column inside the details grid */
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .flexmodellist-header.compact p { padding: 8px 6px; font-size: 13px; }
+    .row-main { padding: 8px 6px; }
+    .expand-btn { padding: 6px 8px; font-size: 14px; }
 }

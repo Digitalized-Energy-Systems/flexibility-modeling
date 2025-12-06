@@ -48,7 +48,7 @@ switch ($sort) {
             <h1>List of Publications about Flexibility Models</h1>
             <div class="content-box-models">
                 <div class="flexmodellist">
-                    <div class="flexmodellist-header">
+                    <div class="flexmodellist-header compact">
                         <p class="year"><a class="sortable-header"
                                 href="?sort=year&order=<?= ($sort == 'year') ? $next_order : 'asc' ?>"><strong>Year
                                     <?= ($sort == 'year') ? ($order == 'asc' ? '▼' : '▲') : '' ?></strong></a></p>
@@ -58,22 +58,9 @@ switch ($sort) {
                         <p class="title"><a class="sortable-header"
                                 href="?sort=title&order=<?= ($sort == 'title') ? $next_order : 'asc' ?>"><strong>Publication
                                     <?= ($sort == 'title') ? ($order == 'asc' ? '▼' : '▲') : '' ?></strong></a></p>
-                        <p class="usecase" style="text-align:center"><strong>Use Case</strong></p>
-                        <p class="methodology" style="text-align:center"><strong>Methodology</strong></p>
-                        <p class="list-implementation" style="text-align:center"><strong>Implementation</strong></p>
-                        <p class="list-doi" style="text-align:center"><strong>DOI</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Asset Types</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Classification</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Flexibility</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Type</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Metrics</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Uncertainty</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Aggregation</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Time</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Resolution</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Multi-Time-Scale</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Mediator</strong></p>
-                        <p class="list-parameters" style="text-align:center"><strong>Constraints</strong></p>
+                        <p class="usecase"><strong>Use Case</strong></p>
+                        <p class="methodology"><strong>Methodology</strong></p>
+                        <p class="expand-col"><strong>Details</strong></p>
                     </div>
                     <div class="flexmodellist-data">
                         <?php if (empty($flexmodelslist)): ?>
@@ -81,34 +68,39 @@ switch ($sort) {
                         <?php else:
                             foreach ($flexmodelslist as $flexmodel): ?>
                                 <div class="flexmodels">
-                                    <p class="year"><?= htmlspecialchars($flexmodel->getYear()) ?></p>
-                                    <p class="authors" title="<?= htmlspecialchars($flexmodel->getAuthors()) ?>">
-                                        <?= htmlspecialchars($flexmodel->getFormattedAuthors()) ?>
-                                    </p>
-                                    <p class="title"><a target=_blank
-                                            href="https://www.doi.org/<?= htmlspecialchars($flexmodel->getDoi()) ?>"><?= htmlspecialchars($flexmodel->getTitle()) ?></a>
-                                    </p>
-                                    <p class="usecase"><?= htmlspecialchars($flexmodel->getUsecase()) ?></p>
-                                    <p class="methodology"><?= htmlspecialchars($flexmodel->getMethodology()) ?></p>
-                                    <p class="list-implementation">
-                                        <a target="_blank" href="<?= htmlspecialchars($flexmodel->getImplementation()) ?>">
-                                            <?= htmlspecialchars($flexmodel->getImplementation()) ?>
-                                        </a>
-                                    </p>
-                                    <p class="list-doi"><?= htmlspecialchars($flexmodel->getDoi()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamAssetTypes()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamClassification()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamFlexibility()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamType()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamMetric()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamUncertainty()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamAggregation()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamTime()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamResolution()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamMultitimescale()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamMediator()) ?></p>
-                                    <p class="list-parameters"><?= htmlspecialchars($flexmodel->getParamConstraints()) ?></p>
+                                    <div class="row-main">
+                                        <p class="year"><?= htmlspecialchars($flexmodel->getYear()) ?></p>
+                                        <p class="authors" title="<?= htmlspecialchars($flexmodel->getAuthors()) ?>">
+                                            <?= htmlspecialchars($flexmodel->getFormattedAuthors()) ?>
+                                        </p>
+                                        <p class="title"><a target=_blank
+                                                href="https://www.doi.org/<?= htmlspecialchars($flexmodel->getDoi()) ?>"><?= htmlspecialchars($flexmodel->getTitle()) ?></a>
+                                        </p>
+                                        <p class="usecase"><?= htmlspecialchars($flexmodel->getUsecase()) ?></p>
+                                        <p class="methodology"><?= htmlspecialchars($flexmodel->getMethodology()) ?></p>
+                                        <p class="expand-col"><button class="expand-btn" aria-expanded="false">▾</button></p>
+                                    </div>
 
+                                    <div class="model-details content">
+                                        <div class="details-grid">
+                                            <div><strong>Implementation:</strong><br/>
+                                                <a target="_blank" href="<?= htmlspecialchars($flexmodel->getImplementation()) ?>"><?= htmlspecialchars($flexmodel->getImplementation()) ?></a>
+                                            </div>
+                                            <div><strong>DOI:</strong><br/><?= htmlspecialchars($flexmodel->getDoi()) ?></div>
+                                            <div><strong>Asset Types:</strong><br/><?= htmlspecialchars($flexmodel->getParamAssetTypes()) ?></div>
+                                            <div><strong>Classification:</strong><br/><?= htmlspecialchars($flexmodel->getParamClassification()) ?></div>
+                                            <div><strong>Flexibility:</strong><br/><?= htmlspecialchars($flexmodel->getParamFlexibility()) ?></div>
+                                            <div><strong>Type:</strong><br/><?= htmlspecialchars($flexmodel->getParamType()) ?></div>
+                                            <div><strong>Metric:</strong><br/><?= htmlspecialchars($flexmodel->getParamMetric()) ?></div>
+                                            <div><strong>Uncertainty:</strong><br/><?= htmlspecialchars($flexmodel->getParamUncertainty()) ?></div>
+                                            <div><strong>Aggregation:</strong><br/><?= htmlspecialchars($flexmodel->getParamAggregation()) ?></div>
+                                            <div><strong>Time:</strong><br/><?= htmlspecialchars($flexmodel->getParamTime()) ?></div>
+                                            <div><strong>Resolution:</strong><br/><?= htmlspecialchars($flexmodel->getParamResolution()) ?></div>
+                                            <div><strong>Multi-Time-Scale:</strong><br/><?= htmlspecialchars($flexmodel->getParamMultitimescale()) ?></div>
+                                            <div><strong>Mediator:</strong><br/><?= htmlspecialchars($flexmodel->getParamMediator()) ?></div>
+                                            <div><strong>Constraints:</strong><br/><?= htmlspecialchars($flexmodel->getParamConstraints()) ?></div>
+                                        </div>
+                                    </div>
 
                                 </div>
                             <?php endforeach; ?>
@@ -121,6 +113,7 @@ switch ($sort) {
     </main>
     <?php include $abs_path . '/php/include/footer.php'; ?>
     <script src="js/script.js"></script>
+    <script src="js/models-list.js"></script>
 
 </body>
 

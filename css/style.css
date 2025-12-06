@@ -122,6 +122,28 @@ h3 {
   text-align: center;
 
 }
+/* Compact header for models list: fewer columns to avoid horizontal overflow */
+.flexmodellist-header.compact {
+  display: grid;
+  grid-template-columns: 70px 200px 1fr 260px 260px 48px;
+  align-items: center;
+  gap: 10px;
+  /* Match the row padding so header columns line up with content columns */
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+/* Make header cells align with the row cells: remove internal padding (container handles it) */
+.flexmodellist-header.compact p {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+}
+.flexmodellist-header.compact p.title { text-align: left; }
+.flexmodellist-header.compact p.authors { text-align: left; }
+.flexmodellist-header.compact p.usecase { text-align: left; }
+.flexmodellist-header.compact p.methodology { text-align: left; }
 
 .parameter-legend {
   display: flex;
@@ -152,11 +174,11 @@ body.dark-mode .sortable-header {
 
 
 .flexmodels {
-  display: flex;
-  flex-direction: row;
-  gap: 10px;
+  display: block;
   background-color: white;
-  align-items: center;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .flexmodels:nth-child(odd) {
@@ -193,27 +215,71 @@ body.dark-mode .flexmodels:nth-child(even) {
   text-decoration: none;
 }
 
-.year {
-  width: 70px;
-  text-align: center;
+.row-main {
+  display: grid;
+  grid-template-columns: 70px 200px 1fr 260px 260px 48px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
 }
 
-.authors {
-  width: 150px;
-  white-space: nowrap;
+.year { text-align: center; }
+.authors { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.title { overflow: hidden; text-overflow: ellipsis; }
+.usecase { overflow: hidden; text-overflow: ellipsis; }
+.methodology { overflow: hidden; text-overflow: ellipsis; }
+
+.expand-col { text-align: center; }
+.expand-btn {
+  background: #1c777a;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  box-shadow: 0 2px 6px rgba(28,119,122,0.24);
+  transition: background-color 150ms ease, transform 120ms ease, box-shadow 150ms ease;
+}
+.expand-btn:hover {
+  background: #166066;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(22,96,102,0.28);
+}
+.expand-btn:active {
+  transform: translateY(0);
+}
+.expand-btn:focus {
+  outline: 3px solid rgba(28,119,122,0.18);
+  outline-offset: 2px;
 }
 
-.title {
-  width: 550px;
+/* Dark mode adjustments for visibility */
+body.dark-mode .expand-btn {
+  background: #2a9ba0;
+  color: #0f1720;
+}
+body.dark-mode .expand-btn:hover {
+  background: #0f7f83;
 }
 
-.usecase {
-  width: 300px;
+.model-details {
+  background: #fafafa;
+  padding: 10px 14px;
+  box-sizing: border-box;
 }
 
-.methodology {
-  width: 300px;
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 18px;
+  font-size: 13px;
+  color: #111;
 }
+
+/* Ensure long values wrap inside details */
+.details-grid div { word-break: break-word; }
 
 .implementation {
   width: 200px;

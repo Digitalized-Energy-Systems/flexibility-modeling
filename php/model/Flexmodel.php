@@ -85,6 +85,7 @@ class Flexmodel implements JsonSerializable
         return [
             'id' => $this->id,
             'authors' => $this->getFormattedAuthors(),
+            'authors_full' => $this->getAuthors(),
             'title' => $this->title,
             'year' => $this->year,
             'abstract' => $this->abstract,
