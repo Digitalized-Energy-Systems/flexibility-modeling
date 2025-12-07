@@ -283,6 +283,20 @@
         text-overflow: ellipsis;
     }
 
+    /* Hide the Details header on small screens - the expand button is sufficient */
+    .flexmodellist-header.compact p.expand-col {
+        display: none;
+    }
+
+    /* Ensure the header 'Publication' label sits cleanly in the middle column and leaves
+       room on the right so it doesn't overlap the expand button */
+    .flexmodellist-header.compact p.title {
+        grid-column: 2 / 3;
+        padding-right: 64px; /* leave space for the expand button */
+        text-align: left;
+        white-space: normal;
+    }
+
     /* Stack details into a single column inside the details grid */
     .details-grid {
         grid-template-columns: 1fr;
