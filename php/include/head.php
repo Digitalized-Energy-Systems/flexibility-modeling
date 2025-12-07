@@ -38,11 +38,8 @@ generateCsrfToken();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- pdfMake: try CDN first, fall back to local copies if blocked/unavailable -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-    <script>if(typeof pdfMake==='undefined'){document.write('\x3Cscript src="js/vendor/pdfmake/pdfmake.min.js">\x3C/script>');}</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-    <script>if(typeof pdfMake==='undefined' || typeof pdfMake.vfs==='undefined'){document.write('\x3Cscript src="js/vendor/pdfmake/vfs_fonts.js">\x3C/script>');}</script>
 
 
 
