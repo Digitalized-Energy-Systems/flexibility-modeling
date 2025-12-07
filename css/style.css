@@ -1641,12 +1641,52 @@ h1 {
 
 #assettypes {
   height: 220px;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: #1c777a #f5f5f5;
+  overflow-y: scroll;
+}
+
+#assettypes::-webkit-scrollbar {
+  width: 8px;
+}
+
+#assettypes::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+#assettypes::-webkit-scrollbar-thumb {
+  background: #1c777a;
+  border-radius: 4px;
+}
+
+#assettypes::-webkit-scrollbar-thumb:hover {
+  background: #166066;
 }
 
 #metric {
   height: 200px;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: #1c777a #f5f5f5;
+  overflow-y: scroll;
+}
+
+#metric::-webkit-scrollbar {
+  width: 8px;
+}
+
+#metric::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+#metric::-webkit-scrollbar-thumb {
+  background: #1c777a;
+  border-radius: 4px;
+}
+
+#metric::-webkit-scrollbar-thumb:hover {
+  background: #166066;
 }
 
 #classification {

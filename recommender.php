@@ -69,15 +69,21 @@ $sliderDefault = 9;
               <span style="font-size:10px">(hold Ctrl/Cmd to select
                 multiple)</span>
               <select id="assettypes" class="form-control" multiple onchange="updateConfigCode()">
-                <option value="universal" selected>Universal</option>
-                <option value="energy storage systems">Energy Storage Systems</option>
-                <option value="demand response program">Demand Response Program</option>
-                <option value="renewable energy sources">Renewable Energy Sources</option>
-                <option value="distributed generation">Distributed Generation</option>
-                <option value="flexible loads">Flexible Loads</option>
-                <option value="grid infrastructure">Grid Infrastructure</option>
-                <option value="electric vehicles">Electric Vehicles</option>
-                <option value="interconnectors">Interconnectors</option>
+                <optgroup label="Electric-Domain Assets">
+                  <option value="renewable generation" selected>Renewable Generation</option>
+                  <option value="conventional generation">Conventional Generation</option>
+                  <option value="distributed generation">Distributed Generation</option>
+                  <option value="electric vehicles">Electric Vehicles</option>
+                  <option value="flexible loads">Flexible Loads</option>
+                  <option value="battery storage systems">Battery Storage Systems</option>
+                </optgroup>
+                <optgroup label="Thermal / Multi-Energy Assets">
+                  <option value="grid infrastructure">Grid Infrastructure</option>
+                  <option value="multi-energy system">Multi-Energy System</option>
+                  <option value="chp units">CHP Units</option>
+                  <option value="heat pumps">Heat Pumps</option>
+                  <option value="thermal energy storage">Thermal Energy Storage</option>
+                </optgroup>
               </select>
             </div>
 

@@ -18,15 +18,17 @@ function updateConfigCode() {
     const assetCheck = getCheckboxState('assettypes');
     const selectedAssets = getSelectedOptions(document.getElementById('assettypes'));
     const assetOptions = [
-        "universal",
-        "energy storage systems",
-        "demand response program",
-        "renewable energy sources",
-        "distributed generation",
-        "flexible loads",
+        "renewable generation",
+        "conventional generation",
         "grid infrastructure",
+        "multi-energy system",
+        "chp units",
+        "heat pumps",
+        "thermal energy storage",
+        "distributed generation",
         "electric vehicles",
-        "interconnectors"
+        "flexible loads",
+        "battery storage systems"
     ];
     const binary = assetOptions.map(opt =>
         selectedAssets.includes(opt.toLowerCase()) ? '1' : '0'
@@ -202,21 +204,23 @@ function loadConfigurationCode() {
     const assetBase36 = parts[1].slice(1);
     const assetDecimal = parseInt(assetBase36, 36);
 
-    if (isNaN(assetDecimal) || assetDecimal < 0 || assetDecimal > 511) {
-        showConfigError("Invalid Asset Types value (base36 must be 0–511).");
+    if (isNaN(assetDecimal) || assetDecimal < 0 || assetDecimal > 2047) {
+        showConfigError("Invalid Asset Types value (base36 must be 0–2047).");
         return;
     }
-    const binary = assetDecimal.toString(2).padStart(9, '0');
+    const binary = assetDecimal.toString(2).padStart(11, '0');
     const assetOptions = [
-        "universal",
-        "energy storage systems",
-        "demand response program",
-        "renewable energy sources",
-        "distributed generation",
-        "flexible loads",
+        "renewable generation",
+        "conventional generation",
         "grid infrastructure",
+        "multi-energy system",
+        "chp units",
+        "heat pumps",
+        "thermal energy storage",
+        "distributed generation",
         "electric vehicles",
-        "interconnectors"
+        "flexible loads",
+        "battery storage systems"
     ];
     const assetSelect = document.getElementById('assettypes');
     if (assetSelect) {
@@ -535,7 +539,7 @@ function validateConfigurationCodeLive() {
 
     const isValid =
         "012".includes(flexCode) &&
-        !isNaN(assetDecimal) && assetDecimal >= 0 && assetDecimal <= 511 &&
+        !isNaN(assetDecimal) && assetDecimal >= 0 && assetDecimal <= 2047 &&
         "012".includes(classificationCode) &&
         "01".includes(typeCode) &&
         "01".includes(timeCode) &&

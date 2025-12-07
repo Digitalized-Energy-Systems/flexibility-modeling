@@ -1,3 +1,20 @@
+/**
+ * Normalize asset type strings for consistent comparison.
+ * Converts to lowercase and trims whitespace.
+ */
+function normalizeAssetType(assetType) {
+    if (!assetType) return assetType;
+    return assetType.toLowerCase().trim();
+}
+
+// Returns true if `modelAssets` (array of normalized strings) contains the
+// `asset` value, allowing for simple singular/plural variations.
+function assetIncluded(modelAssets, asset) {
+    if (!Array.isArray(modelAssets) || modelAssets.length === 0) return false;
+    const a = normalizeAssetType(asset);
+    const aAlt = a.endsWith('s') ? a.slice(0, -1) : a + 's';
+    return modelAssets.includes(a) || modelAssets.includes(aAlt);
+}
 function generateModels() {
     const userInput = {
         param_assettypes: {
@@ -256,17 +273,34 @@ function filterModels(userInput, flexmodels) {
 
                     // Check if the model parameter matches the input value directly
                     if (Array.isArray(inputParam.values)) {
+                        // Normalize model asset types and user input asset types for comparison
+                        // Model asset types may be stored as an array or a comma-separated string.
+                        const modelAssets = Array.isArray(model[parameter])
+                            ? model[parameter].map(a => normalizeAssetType(a))
+                            : (typeof model[parameter] === 'string'
+                                ? model[parameter].split(',').map(a => normalizeAssetType(a))
+                                : []);
+                        const userAssets = inputParam.values.map(a => normalizeAssetType(a));
+
                         // Ensure the model parameter exists, is not empty, and all userInput values are included in the model parameter
                         if (model[parameter] === 'universal') {
                             matches++;
                         }
-                        else if (model[parameter] && model[parameter].length > 0 && inputParam.values.every(option => model[parameter].includes(option))) {
+                        else if (modelAssets.length > 0 && userAssets.every(option => assetIncluded(modelAssets, option))) {
                             matches++;
                         }
                     }
 
                     if (inputParam.check === '1') {
-                        if (model[parameter] != 'universal' && model[parameter] && !inputParam.values.every(option => model[parameter].includes(option))) {
+                        // Model asset types may be stored as an array or a comma-separated string.
+                        const modelAssets = Array.isArray(model[parameter])
+                            ? model[parameter].map(a => normalizeAssetType(a))
+                            : (typeof model[parameter] === 'string'
+                                ? model[parameter].split(',').map(a => normalizeAssetType(a))
+                                : []);
+                        const userAssets = inputParam.values.map(a => normalizeAssetType(a));
+
+                        if (model[parameter] != 'universal' && modelAssets.length > 0 && !userAssets.every(option => assetIncluded(modelAssets, option))) {
                             matches -= 1000;
                         }
                     }
