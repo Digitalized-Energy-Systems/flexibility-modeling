@@ -36,7 +36,7 @@ Currently, local code changes must be manually deployed to the production server
 2. **Copy files to server**: Manually copy the modified files from your local repository to the web server.
 3. **Database updates**: If you've modified the SQLite database, ensure the updated database file is also copied to the server.
 
-> **Note**: Consider setting up automated deployment (e.g., via GitHub Actions or a CI/CD pipeline) for future versions to streamline this process.
+> **Note**: In the future  automated deployment (e.g., via GitHub Actions or a CI/CD pipeline) should be set up to streamline this process.
 
 ### 📖 Usage
 https://flexibility.offis.de/help.php offers a Step-by-Step Guide on how to use the recommender.
