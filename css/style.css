@@ -403,7 +403,7 @@ body.dark-mode .expand-btn:hover {
   content: " ";
   /* Exclamation state */
 
-  background-color: red;
+  background-color: gray;
 
 }
 

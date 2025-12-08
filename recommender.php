@@ -8,7 +8,7 @@ require_once $abs_path . '/php/controller/recommender-controller.php';
 $pageTitle = "Recommender";
 include $abs_path . '/php/include/head.php';
 $_SESSION['currentpage'] = 'recommender';
-$sliderDefault = 9;
+$sliderDefault = 0;
 ?>
 
 <!DOCTYPE html>
@@ -363,7 +363,7 @@ $sliderDefault = 9;
           <h2>Settings</h2>
           <label for="flexibility">Choose the minimum number of matches of desired parameters:</label>
           <div class="slidecontainer">
-            <input type="range" min="1" max="13" value="<?= $sliderDefault ?>" class="slider" id="myRange">
+            <input type="range" min="0" max="13" value="<?= $sliderDefault ?>" class="slider" id="myRange">
             <p><span id="sliderValue"></span></p>
           </div>
           <div class="showWeightsCheckbox" style="display:none">

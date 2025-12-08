@@ -20,5 +20,23 @@ A web tool for displaying flexibility models or relevant scientific publications
 ### 📥 Clone Repository
 git clone https://github.com/Digitalized-Energy-Systems/flexibility-modeling.git
 
-### 🚀 Usage
+### 🗄️ Database Management
+
+The application uses SQLite for storing flexibility models and publications. To edit the database:
+
+1. **Download DB Browser for SQLite**: Use the free [DB Browser for SQLite](https://sqlitebrowser.org/) tool to view and edit the database.
+2. **Locate the database file**: The database file is typically located in the `db/` directory.
+3. **Make your edits**: Open the database in DB Browser, edit tables as needed, and save changes.
+
+### 🚀 Deployment
+
+Currently, local code changes must be manually deployed to the production server:
+
+1. **Prepare your local changes**: Ensure all code modifications are tested locally.
+2. **Copy files to server**: Manually copy the modified files from your local repository to the web server.
+3. **Database updates**: If you've modified the SQLite database, ensure the updated database file is also copied to the server.
+
+> **Note**: Consider setting up automated deployment (e.g., via GitHub Actions or a CI/CD pipeline) for future versions to streamline this process.
+
+### 📖 Usage
 https://flexibility.offis.de/help.php offers a Step-by-Step Guide on how to use the recommender.
