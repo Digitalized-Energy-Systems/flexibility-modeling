@@ -79,11 +79,14 @@ $(document).ready(function () {
   $('#metricToggle').off('click').on('click', function (e) {
     e.preventDefault();
     const content = '<ul>' +
-      '<li><strong>Active power:</strong>  The real component of power that performs actual work in an electrical system, typically measured in watts (W) or megawatts (MW).</li>' +
-      '<li><strong>Ramp-Rate:</strong> The rate at which power output can be increased or decreased, usually measured in megawatts per minute (MW/min), indicating the flexibility of power generation or consumption.</li>' +
-      '<li><strong>Reactive power:</strong> The imaginary component of power that does not perform work but is necessary to maintain voltage levels for the stability of the power system, usually measured in volt-amperes reactive (VAR).</li>' +
-      '<li><strong>Energy:</strong> The total amount of work performed or electricity consumed over a period, typically measured in kilowatt-hours (kWh) or megawatt-hours (MWh).</li>' +
-      '<li><strong>Voltage:</strong> The electric potential difference between two points in a circuit, which drives the current through the electrical system, typically measured in volts (V).</li>' +
+      '<li><strong>Active Power:</strong> Measures the real power (in watts or megawatts) that flexibility resources can deliver or consume. Critical for assessing how much instantaneous load or generation adjustment a resource can provide to balance supply and demand in real-time.</li>' +
+      '<li><strong>Ramp-Rate:</strong> Quantifies how quickly a flexibility resource can change its power output (measured in MW/min). Essential for modeling fast-response capabilities needed for frequency regulation and handling rapid fluctuations in renewable generation.</li>' +
+      '<li><strong>Ramp-Duration:</strong> Specifies the time period required to reach a target power level from a starting point. Important for understanding the sustained flexibility capabilities and planning operational timelines for flexibility deployment.</li>' +
+      '<li><strong>Energy:</strong> Measures the total amount of electricity (in kWh or MWh) that a flexibility resource can shift or store over a period. Critical for energy-based services and determining the capacity of flexibility resources to address longer-duration imbalances.</li>' +
+      '<li><strong>Reactive Power:</strong> Quantifies the reactive power (in VAR) that flexibility resources can provide to support voltage stability and grid control. Important for models addressing voltage support and maintaining power quality during grid disturbances.</li>' +
+      '<li><strong>Voltage:</strong> Measures voltage support capabilities (in volts) that flexibility resources provide. Relevant for transmission and distribution network-level flexibility models requiring voltage regulation and stability assessment.</li>' +
+      '<li><strong>Cost:</strong> Quantifies the economic dimension of flexibility, measuring operational or activation costs (in currency units). Essential for economic optimization and cost-benefit analysis of flexibility deployment strategies.</li>' +
+      '<li><strong>Time:</strong> Represents temporal aspects of flexibility such as response time, availability windows, or planning horizons. Critical for time-dependent flexibility models and scheduling optimization.</li>' +
       '</ul>';
     createAndShowModal('metricModal', 'Metric', content);
   });

@@ -101,14 +101,10 @@ $_SESSION['currentpage'] = 'help';
                             Mandatory</label> Parameters (Strictly Required)
                     </h3>
                     <ol>
-                        <li><b>Demand Response Programs</b> (Asset Type) → The VPP includes demand-side participants
-                            that adjust consumption based on market signals.</li>
-                        <li><b>Energy Storage Systems</b> (Asset Type) → Distributed batteries are used to store excess
-                            energy and discharge it when needed.</li>
-                        <li><b>Uncertainty</b> → The VPP must handle fluctuations in renewable generation and demand
-                            variations.</li>
-                        <li><b>Aggregation</b> → The model must support grouping multiple smaller flexibility resources
-                            into a unified entity.</li>
+                        <li><b>Flexible Loads</b> (Asset Type) → The VPP includes demand-side participants that adjust consumption based on market signals.</li>
+                        <li><b>Battery Storage Systems</b> (Asset Type) → Distributed batteries are used to store excess energy and discharge it when needed.</li>
+                        <li><b>Uncertainty</b> → The VPP must handle fluctuations in renewable generation and demand variations.</li>
+                        <li><b>Aggregation</b> → The model must support grouping multiple smaller flexibility resources into a unified entity.</li>
                     </ol>
 
                     <h3><input class="form-check-input" type="checkbox">
@@ -189,48 +185,17 @@ $_SESSION['currentpage'] = 'help';
                     </ul>
                     <h2>Asset Types</h2>
                     <ul>
-                        <li><strong>Energy Storage Systems</strong>: Such as batteries, pumped hydro storage, and
-                            compressed air energy storage, which can absorb excess power during low demand and
-                            release
-                            it
-                            during peak demand.</li>
-                        <li><strong>Demand Response Programs</strong>: These involve adjusting the demand side of
-                            consumption, where consumers reduce or shift their electricity use in response to market
-                            signals
-                            or utility requests.</li>
-                        <li><strong>Renewable Energy Sources</strong>: Like wind turbines and solar panels, which
-                            are
-                            inherently variable and require flexible solutions to integrate their output smoothly
-                            into
-                            the
-                            grid.</li>
-                        <li><strong>Distributed Generation</strong>: Including small-scale units like diesel
-                            generators,
-                            microturbines, and combined heat and power (CHP) systems that can be controlled to help
-                            balance
-                            local demand and supply.</li>
-                        <li><strong>Flexible Loads</strong>: Industrial processes, heating and cooling systems, and
-                            other
-                            energy-intensive operations that can be adjusted in real-time to help balance the grid.
-                        </li>
-                        <li><strong>Grid Infrastructure</strong>: Advanced transmission technologies, including
-                            smart
-                            grids
-                            and dynamic line rating systems, that can adapt to changing conditions and manage flows
-                            more
-                            effectively.</li>
-                        <li><strong>Electric Vehicles (EVs)</strong>: Their charging and discharging can be managed
-                            to
-                            provide flexibility, particularly as the prevalence of EVs continues to increase.</li>
-                        <li><strong>Interconnectors</strong>: High voltage lines connecting different regions or
-                            countries,
-                            allowing for the transfer of electricity across borders, which can be used to balance
-                            regional
-                            differences in demand and supply.</li>
-                        <li><strong>Peaking Power Plants</strong>: Typically gas turbines or hydro plants that can
-                            be
-                            ramped up quickly to meet sudden increases in electricity demand or unexpected drops in
-                            renewable generation.</li>
+                        <li><strong>Renewable Generation</strong>: Electricity generated from renewable sources such as wind and solar; typically variable and often requiring flexibility resources to integrate reliably.</li>
+                        <li><strong>Conventional Generation</strong>: Dispatchable thermal or fossil-based generation units that can provide firm power and reserve capacity.</li>
+                        <li><strong>Grid Infrastructure</strong>: Transmission and distribution assets, grid controls and interconnectors that enable power flows and system-level flexibility.</li>
+                        <li><strong>Multi-Energy System</strong>: Systems integrating multiple energy vectors (electricity, heat, gas) enabling cross-vector flexibility and sector coupling.</li>
+                        <li><strong>CHP Units</strong>: Combined heat and power plants that produce electricity and useful heat, offering flexible operation opportunities through co-optimization.</li>
+                        <li><strong>Heat Pumps</strong>: Electrically driven heating/cooling devices that can be operated flexibly to shift demand across time.</li>
+                        <li><strong>Thermal Energy Storage</strong>: Systems that store thermal energy (e.g., hot water tanks, chilled storage) to shift heating/cooling loads and provide flexibility.</li>
+                        <li><strong>Distributed Generation</strong>: Small-scale generation located close to demand (e.g., rooftop PV, small gas engines) that can be coordinated for local flexibility.</li>
+                        <li><strong>Electric Vehicles</strong>: Vehicles with smart charging or vehicle-to-grid capability that can act as flexible loads or distributed storage.</li>
+                        <li><strong>Flexible Loads</strong>: Demand-side resources (industrial, commercial, or residential) that can be shifted or curtailed to provide system flexibility.</li>
+                        <li><strong>Battery Storage Systems</strong>: Electrochemical storage units (BESS) used to absorb, store and release electricity, providing fast and controllable flexibility.</li>
                     </ul>
                     <h2>Classification</h2>
                     <ul>
@@ -291,25 +256,14 @@ $_SESSION['currentpage'] = 'help';
                     </ul>
                     <h2>Metric</h2>
                     <ul>
-                        <li><strong>Active power:</strong> The real component of power that performs actual work in
-                            an
-                            electrical system, typically measured in watts (W) or megawatts (MW).</li>
-                        <li><strong>Ramp-Rate:</strong> The rate at which power output can be increased or
-                            decreased,
-                            usually measured in megawatts per minute (MW/min), indicating the flexibility of power
-                            generation or consumption.</li>
-                        <li><strong>Reactive power:</strong> The imaginary component of power that does not perform
-                            work
-                            but is necessary to maintain voltage levels for the stability of the power system,
-                            usually
-                            measured in volt-amperes reactive (VAR).</li>
-                        <li><strong>Energy:</strong> The total amount of work performed or electricity consumed over
-                            a
-                            period, typically measured in kilowatt-hours (kWh) or megawatt-hours (MWh).</li>
-                        <li><strong>Voltage:</strong> The electric potential difference between two points in a
-                            circuit,
-                            which drives the current through the electrical system, typically measured in volts (V).
-                        </li>
+                        <li><strong>Active Power:</strong> Measures the real power (in watts or megawatts) that flexibility resources can deliver or consume. Critical for assessing how much instantaneous load or generation adjustment a resource can provide to balance supply and demand in real-time.</li>
+                        <li><strong>Ramp-Rate:</strong> Quantifies how quickly a flexibility resource can change its power output (measured in MW/min). Essential for modeling fast-response capabilities needed for frequency regulation and handling rapid fluctuations in renewable generation.</li>
+                        <li><strong>Ramp-Duration:</strong> Specifies the time period required to reach a target power level from a starting point. Important for understanding the sustained flexibility capabilities and planning operational timelines for flexibility deployment.</li>
+                        <li><strong>Energy:</strong> Measures the total amount of electricity (in kWh or MWh) that a flexibility resource can shift or store over a period. Critical for energy-based services and determining the capacity of flexibility resources to address longer-duration imbalances.</li>
+                        <li><strong>Reactive Power:</strong> Quantifies the reactive power (in VAR) that flexibility resources can provide to support voltage stability and grid control. Important for models addressing voltage support and maintaining power quality during grid disturbances.</li>
+                        <li><strong>Voltage:</strong> Measures voltage support capabilities (in volts) that flexibility resources provide. Relevant for transmission and distribution network-level flexibility models requiring voltage regulation and stability assessment.</li>
+                        <li><strong>Cost:</strong> Quantifies the economic dimension of flexibility, measuring operational or activation costs (in currency units). Essential for economic optimization and cost-benefit analysis of flexibility deployment strategies.</li>
+                        <li><strong>Time:</strong> Represents temporal aspects of flexibility such as response time, availability windows, or planning horizons. Critical for time-dependent flexibility models and scheduling optimization.</li>
                     </ul>
                     <h2>Constraints</h2>
                     <ul>
