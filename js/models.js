@@ -467,8 +467,20 @@ function displayModels(models, userInput) {
         orderedKeys.forEach(key => {
             if (!(key in model)) return;
 
-            // ab hier alles exakt wie vorher im Inneren deines for-in-Blocks
             const propertyElement = document.createElement('p');
+            const stateIcon = document.createElement('span');
+
+            stateIcon.classList.add('form-check-label'); // re-use existing CSS icon box
+            stateIcon.style.display = 'inline-block';
+            stateIcon.style.marginRight = '6px';
+            stateIcon.style.verticalAlign = 'middle';
+
+            const state = userInput?.[key]?.check;
+            if (state === '1') stateIcon.classList.add('checked');       // mandatory (green)
+            else if (state === '2') stateIcon.classList.add('exclamation'); // irrelevant (red)
+
+            propertyElement.appendChild(stateIcon);
+
             propertyElement.classList.add('model-content');
 
             const labelMap = {
@@ -654,22 +666,19 @@ function displayModels(models, userInput) {
             }
 
             // Apply the matching or non-matching class based on the isMatch result
-            if (isMatch) {
-                valueElement.classList.add('matching');
-                labelElement.classList.add('matching');
-
-            }
-            if (!isMatch) {
-                valueElement.classList.add('non-matching');
-                labelElement.classList.add('non-matching');
-            }
-            if (unknown) {
-                valueElement.classList.add('unknown');
-                labelElement.classList.add('unknown');
-            }
+            
             if (irrelevant) {
                 valueElement.classList.add('irrelevant');
                 labelElement.classList.add('irrelevant');
+            }
+            else if (isMatch || userInput[key].check === '1') {
+                // MANDATORY or DESIRED match → green
+                valueElement.classList.add('matching');
+                labelElement.classList.add('matching');
+            } 
+            else {
+                valueElement.classList.add('non-matching');
+                labelElement.classList.add('non-matching');
             }
 
 

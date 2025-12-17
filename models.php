@@ -45,8 +45,8 @@ switch ($sort) {
 
     <main>
         <article class="flexmodellist-article">
-            <h1>List of Publications about Flexibility Models</h1>
             <div class="content-box-models">
+                <h1>List of Publications about Flexibility Models</h1>
                 <div class="flexmodellist">
                     <div class="flexmodellist-header compact">
                         <p class="year"><a class="sortable-header"

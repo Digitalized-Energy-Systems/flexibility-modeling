@@ -8,7 +8,7 @@
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'home') ? 'glow' : '' ?>" href="index.php">Home</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'recommender') ? 'glow' : '' ?>" href="recommender.php">Recommender</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'models') ? 'glow' : '' ?>" href="models.php">Models</a>
-            <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'help') ? 'glow' : '' ?>" href="help.php">Help</a>
+            <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'help') ? 'glow' : '' ?>" href="help.php">Tutorial</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'contact') ? 'glow' : '' ?>" href="contact.php">Contact</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'feedback') ? 'glow' : '' ?>" href="feedback.php">Feedback</a>
         </div>

@@ -48,7 +48,26 @@ $sliderDefault = 0;
                 <option value="both">Both</option>
               </select>
             </div>
+            <!-- Mediator -->
+            <div class="form-group">
+              <div class="parameter-header">
+                <div class="parameter-label">
+                  <span id="mediatorToggle" class="info-icon" tabindex="0" data-toggle="popover" data-trigger="focus"
+                    title="Mediator">
+                    <i class="bi bi-info-circle"></i></span>
+                  <label id="mediatorLabel" for="mediator">Mediator</label>
+                </div>
+                <input type="text" class="parameter-weight hidden" id="mediatorWeight" name="mediatorWeight" value="10"
+                  min="1" max="100" title="Weight of the parameter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="mediatorCheck" data-state="0"
+                    onchange="toggleTriState('mediator')">
+                  <label class="form-check-label" id="mediatorCheckboxLabel" for="mediatorCheck"></label>
+                </div>
+              </div>
 
+            </div>
+            <hr>
             <!-- Asset Types -->
             <div class="form-group">
               <div class="parameter-header">
@@ -157,30 +176,6 @@ $sliderDefault = 0;
               </select>
             </div>
 
-            <!-- Resolution -->
-            <div class="form-group">
-              <div class="parameter-header">
-                <div class="parameter-label">
-                  <span id="resolutionToggle" class="info-icon" tabindex="0" data-toggle="popover" data-trigger="focus"
-                    title="Resolution">
-                    <i class="bi bi-info-circle"></i></span>
-                  <label id="resolutionLabel" for="resolution">Resolution</label>
-                </div>
-                <input type="text" class="parameter-weight hidden" id="resolutionWeight" name="resolutionWeight"
-                  value="10" min="1" max="100" title="Weight of the parameter">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="resolutionCheck" data-state="0"
-                    onchange="toggleTriState('resolution')">
-                  <label class="form-check-label" id="resolutionCheckboxLabel" for="resolutionCheck"></label>
-                </div>
-              </div>
-              <select id="resolution" class="form-control">
-                <option value="short-term" selected>Short-term</option>
-                <option value="long-term">Long-term</option>
-                <option value="both">Both</option>
-              </select>
-            </div>
-
           </div>
 
           <!-- 2nd column -->
@@ -266,6 +261,31 @@ $sliderDefault = 0;
                 <option value="both">Both</option>
               </select>
             </div>
+            <hr>
+            
+            <!-- Resolution -->
+            <div class="form-group">
+              <div class="parameter-header">
+                <div class="parameter-label">
+                  <span id="resolutionToggle" class="info-icon" tabindex="0" data-toggle="popover" data-trigger="focus"
+                    title="Resolution">
+                    <i class="bi bi-info-circle"></i></span>
+                  <label id="resolutionLabel" for="resolution">Resolution</label>
+                </div>
+                <input type="text" class="parameter-weight hidden" id="resolutionWeight" name="resolutionWeight"
+                  value="10" min="1" max="100" title="Weight of the parameter">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="resolutionCheck" data-state="0"
+                    onchange="toggleTriState('resolution')">
+                  <label class="form-check-label" id="resolutionCheckboxLabel" for="resolutionCheck"></label>
+                </div>
+              </div>
+              <select id="resolution" class="form-control">
+                <option value="short-term" selected>Short-term</option>
+                <option value="long-term">Long-term</option>
+                <option value="both">Both</option>
+              </select>
+            </div>
             <!-- Multi-time-scale -->
             <div class="form-group">
               <div class="parameter-header">
@@ -284,25 +304,7 @@ $sliderDefault = 0;
                 </div>
               </div>
             </div>
-            <!-- Mediator -->
-            <div class="form-group">
-              <div class="parameter-header">
-                <div class="parameter-label">
-                  <span id="mediatorToggle" class="info-icon" tabindex="0" data-toggle="popover" data-trigger="focus"
-                    title="Mediator">
-                    <i class="bi bi-info-circle"></i></span>
-                  <label id="mediatorLabel" for="mediator">Mediator</label>
-                </div>
-                <input type="text" class="parameter-weight hidden" id="mediatorWeight" name="mediatorWeight" value="10"
-                  min="1" max="100" title="Weight of the parameter">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="mediatorCheck" data-state="0"
-                    onchange="toggleTriState('mediator')">
-                  <label class="form-check-label" id="mediatorCheckboxLabel" for="mediatorCheck"></label>
-                </div>
-              </div>
-
-            </div>
+            
 
             <!-- Uncertainty -->
             <div class="form-group">
@@ -357,7 +359,16 @@ $sliderDefault = 0;
           <input class="form-check-input" type="checkbox">
           <label class="form-check-label exclamation">
             irrelevant</label>
+            
         </small>
+          <div class="standard-buttons">
+            <button id="generateButton" style="margin-bottom: 15px;">🔍 Show Models</button>
+            <button id="shareButton" style="margin-bottom: 15px;">🔗 Share</button>
+
+          </div>
+          <div id="shareSuccess" class="text-success" style="font-size: 0.9em; display: none; text-align:center; margin-bottom: 10px;"></div>
+
+
 
         <div class="settings-container">
           <h2>Settings</h2>
@@ -370,8 +381,11 @@ $sliderDefault = 0;
             <input type="checkbox" id="toggleVisibility">
             <label for="toggleVisibility">Show Parameter Weights (uncheck for value reset)</label>
           </div>
+        </div>
+        
+        <div class="configuration-container">
 
-          <h2>Configuration Code:</h2>
+         <h2>Configuration Code:</h2>
           <small style="font-size: 0.8em; color: #555;">
             You can also load a configuration via <code>?config=...</code> in the URL.
           </small>
@@ -380,24 +394,20 @@ $sliderDefault = 0;
             <span id="configCodeStatus" class="config-icon"
               style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); font-size: 1.2em;"></span>
           </div>
-
+          
           <div id="configError" class="text-danger" style="font-size: 0.9em; display: none;"></div>
           <div id="configSuccess" class="text-success" style="font-size: 0.9em; display: none;"></div>
-          <div id="shareSuccess" class="text-success" style="font-size: 0.9em; display: none; margin-top: 5px;"></div>
           <div id="copySuccess" class="text-success" style="font-size: 0.9em; display: none; margin-top: 5px;"></div>
-
           <div class="standard-buttons">
             <button id="loadButton">🔄 Load</button>
             <button id="copyButton">📋 Copy</button>
-            <button id="shareButton">🔗 Share</button>
+
             <button id="resetButton">↺ Reset</button>
           </div>
-
 
         </div>
         <div>
           <div class="standard-buttons">
-            <button id="generateButton">🔍 Show Models</button>
             <button id="exportPdfButton" >📄 Export Results as PDF</button>
           </div>
           <?php if (isset($_SESSION['debug']) && $_SESSION['debug']): ?>

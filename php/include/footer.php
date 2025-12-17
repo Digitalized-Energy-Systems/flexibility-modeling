@@ -7,8 +7,12 @@
                 href="impressum.php">Impressum</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'privacy') ? 'glow' : '' ?>"
                 href="privacy.php">Privacy</a>
+            <div class="footer-meta">
+                Last update: <strong>17/12/2025</strong>
+            </div>
         </div>
     </nav>
+
 </footer>
 
 <!-- Debug Output -->

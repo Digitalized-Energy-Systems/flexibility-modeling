@@ -22,27 +22,56 @@ $sliderDefault = 9;
     <article class="standard-article">
       <div class="content-box">
         <h1>Welcome to the Flexibility Model Recommender!</h1>
-        <section class="intro">
-          <h2>Supporting Your Research in the Energy Domain</h2>
-          <p>
-            The flexibility model recommender is a tool designed to help you find relevant scientific papers and models
-            on flexibility in the energy sector. It has been developed by the group <a
-              href="https://www.offis.de/anwendungen/energie/distributed-artificial-intelligence.html">Distributed
-              Artificial Intelligence</a> at <a href="https://www.offis.de/" target="_blank">OFFIS e.V.</a> in
-            Oldenburg.
-            <br><br>
-            An increasing range of existing flexibility models and their respective published papers have been gathered,
-            covering various aspects of the energy domain.
-            Whether you're conducting research or working on a project that involves flexibility models, this
-            recommender can guide you to the most relevant studies based on the parameters you set, which are
-            largely based on and developed from the meta-research paper <a
-              href="https://doi.org/10.1016/j.rser.2023.113570" target="_blank">A Review of Models for Energy System
-              Flexibility Requirements and Potentials Using the New FLEXBLOX Taxonomy</a>, published in 2023.
-          </p>
-          <p><strong>Please note:</strong> The Flexibility Model Recommender is an ongoing development, and we
-            continuously update and refine it to include more models and papers. We welcome feedback to help improve
-            this tool for the research community.</p>
-        </section>
+
+          <section class="intro">
+            <h2>Supporting Your Research in the Energy Domain</h2>
+
+            <p>
+              The Flexibility Model Recommender is a tool designed to help you find relevant scientific papers and models
+              on flexibility in the energy sector. It has been developed by the group
+              <a href="https://www.offis.de/anwendungen/energie/distributed-artificial-intelligence.html">
+                Distributed Artificial Intelligence
+              </a>
+              at <a href="https://www.offis.de/" target="_blank">OFFIS e.V.</a> in Oldenburg.
+            </p>
+
+            <p>
+              An increasing range of flexibility models and their respective scientific publications has been collected,
+              covering various perspectives and applications within the energy domain.
+              Whether you are conducting academic research or working on an applied project, this recommender helps you
+              identify suitable models based on a structured set of parameters.
+              These parameters are largely based on, and derived from, the meta-research paper
+              <a href="https://doi.org/10.1016/j.rser.2023.113570" target="_blank">
+                A Review of Models for Energy System Flexibility Requirements and Potentials Using the New FLEXBLOX Taxonomy
+              </a>
+              (2023).
+            </p>
+
+            <h2>What Is Flexibility in the Energy Domain?</h2>
+
+            <p>
+              In the energy domain, <strong>flexibility</strong> describes the ability of energy systems, assets, or actors
+              to adapt their behavior over time in response to changing conditions.
+              These conditions may include fluctuations in electricity demand, variability of renewable energy sources,
+              grid constraints, or market signals.
+              Flexibility can be provided by modifying generation, consumption, storage, or their temporal characteristics.
+            </p>
+
+            <p>
+              A <strong>flexibility model</strong> is a formal representation of this adaptive capability.
+              It specifies what aspects of an energy system can be adjusted, to what extent, how quickly, under which
+              technical or operational constraints, and with which objectives or consequences.
+              Such models are used in simulation, optimization, and control approaches to analyze, compare, and coordinate
+              flexible energy resources in modern and future energy systems.
+            </p>
+
+            <p>
+              <strong>Please note:</strong> The Flexibility Model Recommender is an ongoing development.
+              We continuously update and refine it to include additional models and publications.
+              Feedback from the research community is highly welcome and helps improve the quality and coverage of this tool.
+            </p>
+          </section>
+
 
         <!--<section class="how-it-works">
           <h2>How It Works</h2>
@@ -58,14 +87,14 @@ $sliderDefault = 9;
         </section>-->
 
         <section class="get-started">
-          <h2>Get Started</h2>
+          <h2>Getting Started</h2>
           <p>
             To begin, follow the <a target_blank href="help.php#help-tutorial">Step-by-Step guide</a> and explore the
             recommended models.
             The tutorial demonstrates how to use the <b><a href="recommender.php" target="_blank">Flexibility Model
                 Recommender</a></b> by walking through a sample
             scenario of a <b>Virtual Power Plant (VPP)</b>. It covers the steps of exploring parameter options,
-            selecting <b>mandatory</b>, <b>desired</b>, and <b>irrelevant</b> parameters for the scenario, adjusting
+            selecting <b>mandatory</b> and <b>desired</b> parameters for the scenario, adjusting
             match requirements, and retrieving matching flexibility models. By following these steps, users can
             efficiently identify the most suitable flexibility models for their specific needs.<br><br>
             If you need more information or have specific questions, feel free to <a href="contact.php"

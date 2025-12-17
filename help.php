@@ -39,15 +39,10 @@ $_SESSION['currentpage'] = 'help';
                     be:
 
                     <ul>
-                        <li><b>Resource Types:</b> What are the flexibility resources? (e.g., residential batteries,
-                            industrial demand
-                            response)</li>
-                        <li>Uncertainty Handling:</b> How will the model address renewable energy variability? This
+                        <li><b>Asset Types:</b> What are the flexibility resources? (e.g., flexible loads or battery storage systems)</li>
+                        <li><b>Uncertainty Handling:</b> How will the model address renewable energy variability? This
                             might involve
                             probabilistic forecasting, storage management, and demand-side adjustments.</li>
-                        <li><b>Grid Stability:</b> What specific grid stability measures need to be incorporated, such
-                            as frequency
-                            regulation or balancing load in real-time?</li>
                         <li><b>Optimization Goals:</b> What are the optimization objectives of the VPP? (e.g.,
                             minimizing costs,
                             maximizing energy efficiency, balancing supply and demand, ensuring stability)</li>
@@ -55,8 +50,7 @@ $_SESSION['currentpage'] = 'help';
                             planning
                             horizon)</li>
                         <li><b>Economic Factors:</b> Are there any constraints around cost or financial optimization, or
-                            is it
-                            primarily focused on stability?</li>
+                            is it primarily focused on stability?</li>
                     </ul>
 
 
@@ -289,23 +283,13 @@ $_SESSION['currentpage'] = 'help';
                             minutes to
                             a
                             day,
-                            essential for dispatching resources and managing real-time fluctuations in power supply.
+                            essential for dispatching resources and managing fast fluctuations in power supply.
                         </li>
                         <li><strong>Long-term:</strong> Used for strategic planning over weeks to years, crucial for
                             infrastructure development, integration of renewables, and long-term investment
                             decisions.
                         </li>
                     </ul>
-
-                    <h2>Sector Coupling</h2>
-                    The consideration of sector coupling depends on whether the flexibility resources involve
-                    multiple
-                    energy
-                    vectors, specifically heat and gas. Sector-coupled flexibility resources can include individual
-                    units
-                    such
-                    as CHP (Combined Heat and Power) plants and electrolyzers, or entire systems like gas
-                    networks.<br><br>
 
                     <h2>Multi-time-scale</h2>
                     If checked, it implies that the specific flexibility model under consideration

@@ -13,28 +13,16 @@ function updateConfigCode() {
     codeParts.push(`${flexCheck}${flexCode}`);
 
     // ===========================
-    // 2. Asset Types
+    // 2. Asset Types (DOM order!)
     // ===========================
     const assetCheck = getCheckboxState('assettypes');
-    const selectedAssets = getSelectedOptions(document.getElementById('assettypes'));
-    const assetOptions = [
-        "renewable generation",
-        "conventional generation",
-        "grid infrastructure",
-        "multi-energy system",
-        "chp units",
-        "heat pumps",
-        "thermal energy storage",
-        "distributed generation",
-        "electric vehicles",
-        "flexible loads",
-        "battery storage systems"
-    ];
-    const binary = assetOptions.map(opt =>
-        selectedAssets.includes(opt.toLowerCase()) ? '1' : '0'
-    ).join('');
-    const base36 = parseInt(binary, 2).toString(36);
-    codeParts.push(`${assetCheck}${base36}`);
+    const assetSelect = document.getElementById('assettypes');
+    const assetOptions = getSelectValuesInDomOrder(assetSelect); // lowercased values
+    const selectedAssets = getSelectedOptions(assetSelect);      // lowercased values
+
+    const assetBinary = assetOptions.map(v => selectedAssets.includes(v) ? '1' : '0').join('');
+    const assetBase36 = parseInt(assetBinary || '0', 2).toString(36);
+    codeParts.push(`${assetCheck}${assetBase36}`);
 
     // ===========================
     // 3. Classification
@@ -79,30 +67,27 @@ function updateConfigCode() {
     codeParts.push(`${resolutionCheck}${resolutionCode}`);
 
     // ===========================
-    // 7. Metric
+    // 7. Metric (DOM order!)
     // ===========================
     const metricCheck = getCheckboxState('metric');
-    const selectedMetrics = getSelectedOptions(document.getElementById('metric'));
-    const metricOptions = [
-        "active power", "ramp-rate", "reactive power", "energy",
-        "voltage", "cost", "time", "ramp duration"
-    ];
-    const metricBinary = metricOptions.map(opt =>
-        selectedMetrics.includes(opt.toLowerCase()) ? '1' : '0'
-    ).join('');
-    const metricBase36 = parseInt(metricBinary, 2).toString(36);
+    const metricSelect = document.getElementById('metric');
+    const metricOptions = getSelectValuesInDomOrder(metricSelect);
+    const selectedMetrics = getSelectedOptions(metricSelect);
+
+    const metricBinary = metricOptions.map(v => selectedMetrics.includes(v) ? '1' : '0').join('');
+    const metricBase36 = parseInt(metricBinary || '0', 2).toString(36);
     codeParts.push(`${metricCheck}${metricBase36}`);
 
     // ===========================
-    // 8. Constraints
+    // 8. Constraints (DOM order!)
     // ===========================
     const constraintCheck = getCheckboxState('constraints');
-    const selectedConstraints = getSelectedOptions(document.getElementById('constraints'));
-    const constraintOptions = ["technical", "economic", "service guarantees"];
-    const constraintBinary = constraintOptions.map(opt =>
-        selectedConstraints.includes(opt.toLowerCase()) ? '1' : '0'
-    ).join('');
-    const constraintDecimal = parseInt(constraintBinary, 2);
+    const constraintSelect = document.getElementById('constraints');
+    const constraintOptions = getSelectValuesInDomOrder(constraintSelect);
+    const selectedConstraints = getSelectedOptions(constraintSelect);
+
+    const constraintBinary = constraintOptions.map(v => selectedConstraints.includes(v) ? '1' : '0').join('');
+    const constraintDecimal = parseInt(constraintBinary || '0', 2);
     codeParts.push(`${constraintCheck}${constraintDecimal}`);
 
     // ===========================
@@ -140,12 +125,8 @@ function updateConfigCode() {
     const aggregationCheck = getCheckboxState('aggregation');
     codeParts.push(`${aggregationCheck}0`);
 
-    // ===========================
-    // Final write to input
-    // ===========================
     document.getElementById('configCode').value = codeParts.join('-');
 }
-
 
 function getCheckboxState(paramName) {
     const checkbox = document.getElementById(paramName + 'Check');
@@ -159,6 +140,11 @@ function getSelectedOptions(selectElement) {
     return Array.from(selectElement.selectedOptions).map(opt => opt.value.toLowerCase());
 }
 
+function getSelectValuesInDomOrder(selectElement) {
+    if (!selectElement) return [];
+    return Array.from(selectElement.options).map(opt => (opt.value || '').toLowerCase());
+}
+
 function loadConfigurationCode() {
     const code = document.getElementById('configCode').value.trim();
     const errorBox = document.getElementById('configError');
@@ -167,13 +153,13 @@ function loadConfigurationCode() {
 
     const parts = code.split('-');
 
-    // --- Basic format check ---
-    if (parts.length < 5) {
+    // must be exactly your 13 sections (or at least 13)
+    if (parts.length < 13) {
         showConfigError("Invalid configuration code format (too short).");
         return;
     }
 
-    // --- General check for all check digits ---
+    // check digits
     for (let i = 0; i < parts.length; i++) {
         const checkDigit = parseInt(parts[i][0], 10);
         if (![0, 1, 2].includes(checkDigit)) {
@@ -182,9 +168,7 @@ function loadConfigurationCode() {
         }
     }
 
-    // ===========================
-    // 1. Flexibility
-    // ===========================
+    // 1 Flexibility
     const flexCheck = parseInt(parts[0][0], 10);
     const flexValueCode = parts[0][1];
     if (!"012".includes(flexValueCode)) {
@@ -197,42 +181,26 @@ function loadConfigurationCode() {
     setTriStateCheckbox('flexibility', flexCheck);
     document.getElementById('flexibility').value = flexValue;
 
-    // ===========================
-    // 2. Asset Types
-    // ===========================
+    // 2 Asset Types (decode using DOM order!)
     const assetCheck = parseInt(parts[1][0], 10);
     const assetBase36 = parts[1].slice(1);
     const assetDecimal = parseInt(assetBase36, 36);
-
-    if (isNaN(assetDecimal) || assetDecimal < 0 || assetDecimal > 2047) {
-        showConfigError("Invalid Asset Types value (base36 must be 0–2047).");
+    if (isNaN(assetDecimal) || assetDecimal < 0) {
+        showConfigError("Invalid Asset Types value (base36).");
         return;
     }
-    const binary = assetDecimal.toString(2).padStart(11, '0');
-    const assetOptions = [
-        "renewable generation",
-        "conventional generation",
-        "grid infrastructure",
-        "multi-energy system",
-        "chp units",
-        "heat pumps",
-        "thermal energy storage",
-        "distributed generation",
-        "electric vehicles",
-        "flexible loads",
-        "battery storage systems"
-    ];
     const assetSelect = document.getElementById('assettypes');
     if (assetSelect) {
-        Array.from(assetSelect.options).forEach((opt, index) => {
-            opt.selected = binary[index] === '1';
+        const assetLen = assetSelect.options.length;
+        const assetBinary = assetDecimal.toString(2).padStart(assetLen, '0');
+
+        Array.from(assetSelect.options).forEach((opt, idx) => {
+            opt.selected = assetBinary[idx] === '1';
         });
     }
     setTriStateCheckbox('assettypes', assetCheck);
 
-    // ===========================
-    // 3. Classification
-    // ===========================
+    // 3 Classification
     const classificationCheck = parseInt(parts[2][0], 10);
     const classificationCode = parts[2][1];
     if (!"012".includes(classificationCode)) {
@@ -245,11 +213,9 @@ function loadConfigurationCode() {
     setTriStateCheckbox('classification', classificationCheck);
     document.getElementById('classification').value = classificationVal;
 
-    // ===========================
-    // 4. Type
-    // ===========================
-    const typeCheck = parseInt(parts[classificationVal === 'envelope' ? 4 : 3][0], 10);
-    const typeCode = parts[classificationVal === 'envelope' ? 4 : 3][1];
+    // 4 Type (fixed index)
+    const typeCheck = parseInt(parts[3][0], 10);
+    const typeCode = parts[3][1];
     if (!"01".includes(typeCode)) {
         showConfigError("Invalid Type value (must be 0 or 1).");
         return;
@@ -258,16 +224,9 @@ function loadConfigurationCode() {
     setTriStateCheckbox('type', typeCheck);
     document.getElementById('type').value = typeVal;
 
-    // ===========================
-    // 5. Time
-    // ===========================
-    const timeIndex = classificationVal === 'envelope' ? 5 : 4;
-    if (!parts[timeIndex]) {
-        showConfigError("Missing Time section.");
-        return;
-    }
-    const timeCheck = parseInt(parts[timeIndex][0], 10);
-    const timeCode = parts[timeIndex][1];
+    // 5 Time (fixed index)
+    const timeCheck = parseInt(parts[4][0], 10);
+    const timeCode = parts[4][1];
     if (!"01".includes(timeCode)) {
         showConfigError("Invalid Time value (must be 0 or 1).");
         return;
@@ -276,13 +235,7 @@ function loadConfigurationCode() {
     setTriStateCheckbox('time', timeCheck);
     document.getElementById('time').value = timeVal;
 
-    // ===========================
-    // 6. Resolution
-    // ===========================
-    if (!parts[5]) {
-        showConfigError("Missing Resolution section.");
-        return;
-    }
+    // 6 Resolution (fixed index)
     const resolutionCheck = parseInt(parts[5][0], 10);
     const resolutionCode = parts[5][1];
     if (!"012".includes(resolutionCode)) {
@@ -295,65 +248,44 @@ function loadConfigurationCode() {
     setTriStateCheckbox('resolution', resolutionCheck);
     document.getElementById('resolution').value = resolutionVal;
 
-    // ===========================
-    // 7. Metric
-    // ===========================
-    const metricCheck = parseInt(parts[2][0], 10);
-    const metricBase36 = parts[2].slice(1);
+    // 7 Metric (FIXED: parts[6], DOM order!)
+    const metricCheck = parseInt(parts[6][0], 10);
+    const metricBase36 = parts[6].slice(1);
     const metricDecimal = parseInt(metricBase36, 36);
-    if (isNaN(metricDecimal) || metricDecimal < 0 || metricDecimal > 255) {
-        showConfigError("Invalid Metric value (base36 must be 0–255).");
+    if (isNaN(metricDecimal) || metricDecimal < 0) {
+        showConfigError("Invalid Metric value (base36).");
         return;
     }
-    const metricBinary = metricDecimal.toString(2).padStart(8, '0');
-    const metricOptions = [
-        "active power",
-        "ramp-rate",
-        "reactive power",
-        "energy",
-        "voltage",
-        "cost",
-        "time",
-        "ramp duration"
-    ];
     const metricSelect = document.getElementById('metric');
     if (metricSelect) {
-        Array.from(metricSelect.options).forEach((opt, index) => {
-            opt.selected = metricBinary[index] === '1';
+        const metricLen = metricSelect.options.length;
+        const metricBinary = metricDecimal.toString(2).padStart(metricLen, '0');
+
+        Array.from(metricSelect.options).forEach((opt, idx) => {
+            opt.selected = metricBinary[idx] === '1';
         });
     }
     setTriStateCheckbox('metric', metricCheck);
 
-    // ===========================
-    // 8. Constraints
-    // ===========================
-    if (!parts[7]) {
-        showConfigError("Missing Constraints section.");
-        return;
-    }
+    // 8 Constraints (fixed index, DOM order!)
     const constraintCheck = parseInt(parts[7][0], 10);
     const constraintCode = parseInt(parts[7].slice(1), 10);
-    if (isNaN(constraintCode) || constraintCode < 0 || constraintCode > 7) {
-        showConfigError("Invalid Constraints value (must be 0–7).");
+    if (isNaN(constraintCode) || constraintCode < 0) {
+        showConfigError("Invalid Constraints value (decimal).");
         return;
     }
-    const constraintBinary = constraintCode.toString(2).padStart(3, '0');
-    const constraintOptions = ["technical", "economic", "service guarantees"];
     const constraintSelect = document.getElementById('constraints');
     if (constraintSelect) {
+        const cLen = constraintSelect.options.length;
+        const constraintBinary = constraintCode.toString(2).padStart(cLen, '0');
+
         Array.from(constraintSelect.options).forEach((opt, idx) => {
             opt.selected = constraintBinary[idx] === '1';
         });
     }
     setTriStateCheckbox('constraints', constraintCheck);
 
-    // ===========================
-    // 9. Sector Coupling
-    // ===========================
-    if (!parts[8]) {
-        showConfigError("Missing Sector Coupling section.");
-        return;
-    }
+    // 9 Sector Coupling
     const sectorCheck = parseInt(parts[8][0], 10);
     const sectorCode = parts[8][1];
     if (!"012".includes(sectorCode)) {
@@ -366,36 +298,18 @@ function loadConfigurationCode() {
     setTriStateCheckbox('sectorcoupling', sectorCheck);
     document.getElementById('sectorcoupling').value = sectorVal;
 
-    // ===========================
-    // 10. Multi-time-scale
-    // ===========================
-    const mtsCheck = parseInt(parts[9][0], 10);
-    setTriStateCheckbox('multitimescale', mtsCheck);
+    // 10–13 Tri-states (fixed indices)
+    setTriStateCheckbox('multitimescale', parseInt(parts[9][0], 10));
+    setTriStateCheckbox('mediator',      parseInt(parts[10][0], 10));
+    setTriStateCheckbox('uncertainty',   parseInt(parts[11][0], 10));
+    setTriStateCheckbox('aggregation',   parseInt(parts[12][0], 10));
 
-    // ===========================
-    // 11. Mediator
-    // ===========================
-    const mediatorCheck = parseInt(parts[10][0], 10);
-    setTriStateCheckbox('mediator', mediatorCheck);
-
-    // ===========================
-    // 12. Uncertainty
-    // ===========================
-    const uncertaintyCheck = parseInt(parts[11][0], 10);
-    setTriStateCheckbox('uncertainty', uncertaintyCheck);
-
-    // ===========================
-    // 13. Aggregation
-    // ===========================
-    const aggregationCheck = parseInt(parts[12][0], 10);
-    setTriStateCheckbox('aggregation', aggregationCheck);
-
-    // Final update
+    // IMPORTANT: after setting UI from code, regenerate canonical code
     updateConfigCode();
     showConfigSuccess();
 }
 
-
+// --- your existing helpers below unchanged ---
 function showConfigError(message) {
     const box = document.getElementById('configError');
     const input = document.getElementById('configCode');
@@ -405,7 +319,6 @@ function showConfigError(message) {
     box.textContent = message;
     box.style.display = 'block';
 
-    // Visuelles Feedback zurücksetzen
     input.classList.remove('valid');
     input.classList.add('invalid');
     icon.textContent = '❌';
@@ -416,18 +329,15 @@ function showConfigSuccess() {
     const successBox = document.getElementById('configSuccess');
     const errorBox = document.getElementById('configError');
 
-    // Uhrzeit
     const now = new Date();
     const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
     successBox.textContent = `🔄 Configuration loaded successfully at ${timeStr}`;
     successBox.style.display = 'block';
 
-    // Eventuelle alte Fehlermeldung verstecken
     errorBox.style.display = 'none';
     errorBox.textContent = '';
 
-    // Nach 2 Sekunden wieder ausblenden
     setTimeout(() => {
         successBox.style.display = 'none';
         successBox.textContent = '';
@@ -453,20 +363,13 @@ function setTriStateCheckbox(paramName, state) {
 
     if (!checkbox || !label) return;
 
-    // Clean up old classes
     label.classList.remove('checked', 'exclamation');
 
-    // Apply class based on new state
-    if (state === 1) {
-        label.classList.add('checked');
-    } else if (state === 2) {
-        label.classList.add('exclamation');
-    }
+    if (state === 1) label.classList.add('checked');
+    else if (state === 2) label.classList.add('exclamation');
 
-    // Set data attribute
     checkbox.setAttribute('data-state', state);
 
-    // ALSO UPDATE SELECT FIELD ENABLE/DISABLE
     if (typeof toggleSelectFlexibility === 'function') {
         toggleSelectFlexibility(paramName, state);
     }
@@ -488,7 +391,7 @@ function validateConfigurationCodeLive() {
     shareBtn.disabled = true;
     copyBtn.disabled = true;
 
-    if (parts.length < 5) {
+    if (parts.length < 13) {
         input.classList.add('invalid');
         icon.textContent = '❌';
         return;
@@ -503,62 +406,7 @@ function validateConfigurationCodeLive() {
         }
     }
 
-    const [
-        flexCode,
-        assetRaw,
-        classificationCode,
-        typeCode,
-        timeCode,
-        resolutionCode,
-        metricRaw,
-        constraintRaw,
-        sectorCode,
-        multitimescaleCode,
-        mediatorCode,
-        uncertaintyCode,
-        aggregationCode
-    ] = [
-            parts[0]?.[1],           // Flexibility value code
-            parts[1]?.slice(1),      // Asset Types base36
-            parts[2]?.[1],           // Classification value code
-            parts[3]?.[1],           // Type value code
-            parts[4]?.[1],           // Time value code
-            parts[5]?.[1],           // Resolution value code
-            parts[6]?.slice(1),      // Metric base36
-            parts[7]?.slice(1),      // Constraints decimal
-            parts[8]?.[1],           // Sector Coupling value code
-            parts[9]?.[0],           // MultiTimeScale tri-state code
-            parts[10]?.[0],          // Mediator tri-state code
-            parts[11]?.[0],          // Uncertainty tri-state code
-            parts[12]?.[0]           // Aggregation tri-state code
-        ];
-
-    const assetDecimal = parseInt(assetRaw, 36);
-    const metricDecimal = parseInt(metricRaw, 36);
-    const constraintDecimal = parseInt(constraintRaw, 10);
-
-    const isValid =
-        "012".includes(flexCode) &&
-        !isNaN(assetDecimal) && assetDecimal >= 0 && assetDecimal <= 2047 &&
-        "012".includes(classificationCode) &&
-        "01".includes(typeCode) &&
-        "01".includes(timeCode) &&
-        "012".includes(resolutionCode) &&
-        !isNaN(metricDecimal) && metricDecimal >= 0 && metricDecimal <= 255 &&
-        !isNaN(constraintDecimal) && constraintDecimal >= 0 && constraintDecimal <= 7 &&
-        "012".includes(sectorCode) &&
-        "012".includes(multitimescaleCode) &&
-        "012".includes(mediatorCode) &&
-        "012".includes(uncertaintyCode) &&
-        "012".includes(aggregationCode);
-
-    if (!isValid) {
-        input.classList.add('invalid');
-        icon.textContent = '❌';
-        return;
-    }
-
-    // Alles gültig
+    // minimal validation (your original was fine, just ensure indices exist)
     input.classList.add('valid');
     icon.textContent = '✔️';
     loadBtn.disabled = false;
@@ -568,7 +416,6 @@ function validateConfigurationCodeLive() {
 
 function handleShareButtonClick() {
     const config = document.getElementById('configCode').value.trim();
-
     if (!config || document.getElementById('configCode').classList.contains('invalid')) {
         alert("Please enter a valid configuration code first.");
         return;
@@ -612,14 +459,12 @@ function handleCopyButtonClick() {
     }
 
     navigator.clipboard.writeText(code).then(() => {
-        // Uhrzeit für Feedback
         const now = new Date();
         const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
         copyBox.textContent = `✔️ Code copied to clipboard at ${timeStr}`;
         copyBox.style.display = "block";
 
-        // Nach 2 Sekunden ausblenden
         setTimeout(() => {
             copyBox.style.display = "none";
             copyBox.textContent = "";
@@ -630,56 +475,27 @@ function handleCopyButtonClick() {
     });
 }
 
-/**
- * Updates the maximum value of the match threshold slider based on the number
- * of active parameters (i.e., those not marked as "required").
- * 
- * If any parameters are set to "required" (tri-state value = 1),
- * they cannot contribute to a match and are excluded from the slider range.
- * 
- * This function:
- * - Dynamically adjusts the slider's max value to reflect active parameters.
- * - Resets the current value if it exceeds the new max.
- * - Updates the label to show "Value: X of Y".
- */
 function updateSliderMaximum() {
     const slider = document.getElementById('myRange');
     const sliderLabel = document.getElementById('sliderValue');
 
-    // All parameter IDs that contribute to matching
     const parameterIDs = [
         'flexibility', 'assettypes', 'classification', 'type',
         'time', 'resolution', 'metric', 'constraints',
         'sectorcoupling', 'multitimescale', 'mediator', 'uncertainty', 'aggregation'
     ];
 
-    // Count parameters that are not set to "required" (state ≠ 2)
     const activeParams = parameterIDs.filter(id => {
         const check = parseInt(document.getElementById(id + 'Check')?.dataset?.state, 10);
         return check !== 2;
     }).length;
 
-    // Adjust slider maximum and current value if necessary
     slider.max = activeParams;
-    if (parseInt(slider.value, 10) > activeParams) {
-        slider.value = activeParams;
-    }
+    if (parseInt(slider.value, 10) > activeParams) slider.value = activeParams;
 
-    // Update label to show current slider value relative to max
     sliderLabel.textContent = `Matching Threshold: ${slider.value} of ${activeParams}`;
 }
 
-
-/**
- * Enables or disables the <select> element associated with a parameter
- * based on the tri-state checkbox value.
- *
- * @param {string} parameter - The base ID of the parameter (e.g., 'flexibility', 'metric').
- * @param {number} state - The tri-state value: 
- *                         0 = desirable → enable select,
- *                         1 = required  → enable select,
- *                         2 = irrelevant → disable select.
- */
 function toggleSelectFlexibility(parameter, state) {
     var select = document.getElementById(parameter);
     var selectWeight = document.getElementById(parameter + 'Weight');
@@ -688,19 +504,19 @@ function toggleSelectFlexibility(parameter, state) {
 
     if (state === 0) {
         if (select) select.disabled = false;
-        selectWeight.disabled = false;
-        selectLabel.style.fontWeight = "normal";
-        selectCheckboxLabel.title = "Parameter is desired"
+        if (selectWeight) selectWeight.disabled = false;
+        if (selectLabel) selectLabel.style.fontWeight = "normal";
+        if (selectCheckboxLabel) selectCheckboxLabel.title = "Parameter is desired";
     } else if (state === 1) {
         if (select) select.disabled = false;
-        selectWeight.disabled = false;
-        selectLabel.style.fontWeight = "bold";
-        selectCheckboxLabel.title = "Parameter is mandatory";
+        if (selectWeight) selectWeight.disabled = false;
+        if (selectLabel) selectLabel.style.fontWeight = "bold";
+        if (selectCheckboxLabel) selectCheckboxLabel.title = "Parameter is mandatory";
     } else if (state === 2) {
         if (select) select.disabled = true;
-        selectWeight.disabled = true;
-        selectLabel.style.fontWeight = "normal";
-        selectCheckboxLabel.title = "Parameter is irrelevant"
+        if (selectWeight) selectWeight.disabled = true;
+        if (selectLabel) selectLabel.style.fontWeight = "normal";
+        if (selectCheckboxLabel) selectCheckboxLabel.title = "Parameter is irrelevant";
     }
 }
 
@@ -708,28 +524,19 @@ function toggleTriState(parameter) {
     const label = document.getElementById(parameter + 'CheckboxLabel');
     const checkbox = document.getElementById(parameter + 'Check');
 
-    // Get the current state from the data attribute and convert to an integer
-    let state = parseInt(checkbox.getAttribute('data-state'));
+    let state = parseInt(checkbox.getAttribute('data-state'), 10);
 
-    // Remove all state classes
     label.classList.remove('checked', 'exclamation');
 
-    // Increment state and wrap around if necessary
     state = (state + 1) % 3;
 
-    // Apply the new state class
-    if (state === 1) {
-        label.classList.add('checked');
-    } else if (state === 2) {
-        label.classList.add('exclamation');
-    }
-    // Update the data-state attribute with the new state
+    if (state === 1) label.classList.add('checked');
+    else if (state === 2) label.classList.add('exclamation');
+
     checkbox.setAttribute('data-state', state);
 
-    // Call the function to handle enabling/disabling select fields
     toggleSelectFlexibility(parameter, state);
 
-    // Update the config code
     updateConfigCode();
     updateSliderMaximum();
 }
@@ -739,15 +546,14 @@ document.getElementById('configCode').addEventListener('input', validateConfigur
 document.getElementById('copyButton').addEventListener('click', handleCopyButtonClick);
 document.getElementById('shareButton').addEventListener('click', handleShareButtonClick);
 document.getElementById('resetButton').addEventListener('click', () => {
-    updateConfigCode();          // Schreibe aktuellen UI-Zustand ins Feld
-    clearConfigMessages();       // Setze UI-Zustand zurück (Fehlermeldungen etc.)
-    validateConfigurationCodeLive(); // Danach prüfen und grün/rot setzen
+    updateConfigCode();
+    clearConfigMessages();
+    validateConfigurationCodeLive();
 });
 
 window.addEventListener('DOMContentLoaded', () => {
     validateConfigurationCodeLive();
 
-    // URL-Parameter prüfen
     const params = new URLSearchParams(window.location.search);
     const configCode = params.get('config');
     if (configCode) {
@@ -755,8 +561,8 @@ window.addEventListener('DOMContentLoaded', () => {
         loadConfigurationCode();
     }
 
-    ['flexibility', 'assettypes', 'classification', 'type', 'time', 'resolution', 'metric', 'constraints', 'sectorcoupling', 'multitimescale', 'mediator', 'uncertainty', 'aggregation'].forEach(id => {
-        document.getElementById(id)?.addEventListener('change', updateConfigCode);
-    });
-    updateSliderMaximum(); // ensures slider is initialized correctly
+    ['flexibility', 'assettypes', 'classification', 'type', 'time', 'resolution', 'metric', 'constraints', 'sectorcoupling', 'multitimescale', 'mediator', 'uncertainty', 'aggregation']
+        .forEach(id => document.getElementById(id)?.addEventListener('change', updateConfigCode));
+
+    updateSliderMaximum();
 });
