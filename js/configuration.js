@@ -1,3 +1,4 @@
+// This function generates the configuration code based on current UI selections
 function updateConfigCode() {
     const codeParts = [];
 
@@ -565,4 +566,9 @@ window.addEventListener('DOMContentLoaded', () => {
         .forEach(id => document.getElementById(id)?.addEventListener('change', updateConfigCode));
 
     updateSliderMaximum();
+});
+
+// Workaround to remove sector coupling parameter from UI by default
+document.addEventListener('DOMContentLoaded', () => {
+    setTriStateCheckbox('sectorcoupling', 2);
 });

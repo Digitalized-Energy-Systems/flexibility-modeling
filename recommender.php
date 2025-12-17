@@ -238,8 +238,9 @@ $sliderDefault = 0;
               </select>
             </div>
 
-            <!-- Sector Coupling -->
-            <div class="form-group">
+  
+            <!-- HIDDEN as workaround: Sector Coupling -->
+            <div class="form-group hidden-sector-coupling"">
               <div class="parameter-header">
                 <div class="parameter-label">
                   <span id="sectorcouplingToggle" class="info-icon" tabindex="0" data-toggle="popover"
@@ -250,7 +251,7 @@ $sliderDefault = 0;
                 <input type="text" class="parameter-weight hidden" id="sectorcouplingWeight" name="sectorcouplingWeight"
                   value="10" min="1" max="100" title="Weight of the parameter">
                 <div class="form-check">
-                  <input class="form-check-input" type="checkbox" id="sectorcouplingCheck" data-state="0"
+                  <input class="form-check-input" type="checkbox" id="sectorcouplingCheck" data-state="2"
                     onchange="toggleTriState('sectorcoupling')">
                   <label class="form-check-label" id="sectorcouplingCheckboxLabel" for="sectorcouplingCheck"></label>
                 </div>
@@ -305,7 +306,7 @@ $sliderDefault = 0;
               </div>
             </div>
             
-
+            <hr>
             <!-- Uncertainty -->
             <div class="form-group">
               <div class="parameter-header">
@@ -382,7 +383,7 @@ $sliderDefault = 0;
             <label for="toggleVisibility">Show Parameter Weights (uncheck for value reset)</label>
           </div>
         </div>
-        
+
         <div class="configuration-container">
 
          <h2>Configuration Code:</h2>

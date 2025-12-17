@@ -154,6 +154,10 @@ h3 {
   gap: 5px;
 }
 
+.hidden-sector-coupling {
+  display: none !important;
+}
+
 .sortable-header {
   font-weight: bold;
   color: black;

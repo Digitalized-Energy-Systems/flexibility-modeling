@@ -448,18 +448,19 @@ function displayModels(models, userInput) {
             divContainer.appendChild(methodologyElement);
         }
 
+        // Ordered list of parameter keys to display
         const orderedKeys = [
             'param_flexibility',
+            'param_mediator',
             'param_assettypes',
             'param_classification',
             'param_type',
             'param_time',
-            'param_resolution',
             'param_metric',
             'param_constraints',
-            'param_sectorcoupling',
+            // 'param_sectorcoupling', // removed since asset types cover this already now
+            'param_resolution',
             'param_multitimescale',
-            'param_mediator',
             'param_uncertainty',
             'param_aggregation'
         ];
