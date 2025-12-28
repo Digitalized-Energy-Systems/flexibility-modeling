@@ -142,7 +142,7 @@ h3 {
 }
 .flexmodellist-header.compact p.title { text-align: left; }
 .flexmodellist-header.compact p.authors { text-align: left; }
-.flexmodellist-header.compact p.usecase { text-align: left; }
+.flexmodellist-header.compact p.usecase { text-align: left; } 
 .flexmodellist-header.compact p.methodology { text-align: left; }
 
 .parameter-legend {
@@ -150,7 +150,7 @@ h3 {
   flex-direction: row;
   padding-top: 0px;
   padding-bottom: 10px;
-  justify-content: center;
+  justify-content: center; 
   gap: 5px;
 }
 

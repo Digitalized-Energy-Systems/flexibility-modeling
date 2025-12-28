@@ -384,7 +384,7 @@ $sliderDefault = 0;
           </div>
         </div>
 
-        <div class="configuration-container">
+        <div class="configuration-container" style="display: none;">
 
          <h2>Configuration Code:</h2>
           <small style="font-size: 0.8em; color: #555;">
@@ -402,7 +402,6 @@ $sliderDefault = 0;
           <div class="standard-buttons">
             <button id="loadButton">🔄 Load</button>
             <button id="copyButton">📋 Copy</button>
-
             <button id="resetButton">↺ Reset</button>
           </div>
 

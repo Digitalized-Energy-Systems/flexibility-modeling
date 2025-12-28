@@ -46,9 +46,7 @@ $_SESSION['currentpage'] = 'help';
                         <li><b>Optimization Goals:</b> What are the optimization objectives of the VPP? (e.g.,
                             minimizing costs,
                             maximizing energy efficiency, balancing supply and demand, ensuring stability)</li>
-                        <li><b>Time Horizon:</b> How quickly must decisions be made? (e.g., real-time or over a longer
-                            planning
-                            horizon)</li>
+                        <li><b>Time Horizon:</b> How quickly must decisions be made? (e.g., short-term like minutes/hours, or over a longer planning horizon)</li>
                         <li><b>Economic Factors:</b> Are there any constraints around cost or financial optimization, or
                             is it primarily focused on stability?</li>
                     </ul>
@@ -106,7 +104,7 @@ $_SESSION['currentpage'] = 'help';
                             Desired</label> Parameters (Preferred but not mandatory)
                     </h3>
                     <ol start="5">
-                        <li><b>Short-term Resolution</b> → The VPP operates in real-time and short time frames, so
+                        <li><b>Short-term Resolution</b> → The VPP operates in short time frames, so
                             models with short-term decision-making are beneficial.</li>
                         <li><b>Economic Constraints</b> → The VPP aims to optimize financial outcomes but does not make
                             it an absolute requirement.</li>

@@ -1,7 +1,6 @@
 <header>
     <nav>
         <div class="nav-logos">
-            <img class="logo" src="images/flex.png" alt="Flex Logo" width="50" height="50">
             <a class="nav-sponsor-mobile" href="https://nfdi4energy.uol.de/" target="_blank"><img class="logo sponsor-logo" src="images/nfdi4energy.png" alt="nfdi4energy" width="103" height="42"></a>
         </div>
         <div class="nav-links">

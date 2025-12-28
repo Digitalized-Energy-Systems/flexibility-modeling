@@ -1,10 +1,7 @@
-// This function generates the configuration code based on current UI selections
 function updateConfigCode() {
     const codeParts = [];
 
-    // ===========================
-    // 1. Flexibility
-    // ===========================
+    // Flexibility
     const flexVal = document.getElementById('flexibility')?.value ?? 'none';
     const flexCheck = getCheckboxState('flexibility');
     const flexCode = flexVal === 'potential' ? '0'
@@ -13,9 +10,7 @@ function updateConfigCode() {
                 : '9';
     codeParts.push(`${flexCheck}${flexCode}`);
 
-    // ===========================
-    // 2. Asset Types (DOM order!)
-    // ===========================
+    // Asset Types (DOM order)
     const assetCheck = getCheckboxState('assettypes');
     const assetSelect = document.getElementById('assettypes');
     const assetOptions = getSelectValuesInDomOrder(assetSelect); // lowercased values
@@ -25,9 +20,7 @@ function updateConfigCode() {
     const assetBase36 = parseInt(assetBinary || '0', 2).toString(36);
     codeParts.push(`${assetCheck}${assetBase36}`);
 
-    // ===========================
-    // 3. Classification
-    // ===========================
+    // Classification
     const classificationVal = document.getElementById('classification')?.value ?? 'none';
     const classificationCheck = getCheckboxState('classification');
     const classificationCode = classificationVal === 'metric' ? '0'
@@ -36,9 +29,7 @@ function updateConfigCode() {
                 : '9';
     codeParts.push(`${classificationCheck}${classificationCode}`);
 
-    // ===========================
-    // 4. Type
-    // ===========================
+    // Type
     const typeVal = document.getElementById('type')?.value ?? 'none';
     const typeCheck = getCheckboxState('type');
     const typeCode = typeVal === 'deterministic' ? '0'
@@ -46,8 +37,7 @@ function updateConfigCode() {
             : '9';
     codeParts.push(`${typeCheck}${typeCode}`);
 
-    // ===========================
-    // 5. Time
+    // Time
     // ===========================
     const timeVal = document.getElementById('time')?.value ?? 'none';
     const timeCheck = getCheckboxState('time');
@@ -305,12 +295,10 @@ function loadConfigurationCode() {
     setTriStateCheckbox('uncertainty',   parseInt(parts[11][0], 10));
     setTriStateCheckbox('aggregation',   parseInt(parts[12][0], 10));
 
-    // IMPORTANT: after setting UI from code, regenerate canonical code
     updateConfigCode();
     showConfigSuccess();
 }
 
-// --- your existing helpers below unchanged ---
 function showConfigError(message) {
     const box = document.getElementById('configError');
     const input = document.getElementById('configCode');

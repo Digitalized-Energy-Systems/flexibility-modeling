@@ -1,14 +1,8 @@
-/**
- * Normalize asset type strings for consistent comparison.
- * Converts to lowercase and trims whitespace.
- */
 function normalizeAssetType(assetType) {
     if (!assetType) return assetType;
     return assetType.toLowerCase().trim();
 }
 
-// Returns true if `modelAssets` (array of normalized strings) contains the
-// `asset` value, allowing for simple singular/plural variations.
 function assetIncluded(modelAssets, asset) {
     if (!Array.isArray(modelAssets) || modelAssets.length === 0) return false;
     const a = normalizeAssetType(asset);
