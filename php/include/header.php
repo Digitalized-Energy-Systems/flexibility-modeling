@@ -7,9 +7,9 @@
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'home') ? 'glow' : '' ?>" href="index.php">Home</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'recommender') ? 'glow' : '' ?>" href="recommender.php">Recommender</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'models') ? 'glow' : '' ?>" href="models.php">Models</a>
+            <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'data') ? 'glow' : '' ?>"href="data.php">Datasets</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'help') ? 'glow' : '' ?>" href="help.php">Tutorial</a>
             <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'contact') ? 'glow' : '' ?>" href="contact.php">Contact</a>
-            <a class="<?= (isset($_SESSION['currentpage']) && $_SESSION['currentpage'] == 'feedback') ? 'glow' : '' ?>" href="feedback.php">Feedback</a>
         </div>
         <a class="nav-sponsor" href="https://nfdi4energy.uol.de/" target="_blank"><img class="logo sponsor-logo" src="images/nfdi4energy.png" alt="nfdi4energy" width="103" height="42"></a>
         <div class="nav-controls">
@@ -21,9 +21,9 @@
                 <a href="index.php">Home</a>
                 <a href="recommender.php">Recommender</a>
                 <a href="models.php">Models</a>
+                <a href="data.php">Datasets</a>
                 <a href="help.php">Help</a>
                 <a href="contact.php">Contact</a>
-                <a href="feedback.php">Feedback</a>
                 <hr style="border: none; border-top: 1px solid #ddd; margin: 8px 0;">
                 <a href="termsofuse.php">Terms of Use</a>
                 <a href="impressum.php">Impressum</a>

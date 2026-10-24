@@ -26,6 +26,7 @@ class Flexmodel implements JsonSerializable
     private $param_sectorcoupling;
     private $param_multitimescale;
     private $flexblox;
+    private $datasets;
 
 
     public function __construct(
@@ -53,6 +54,7 @@ class Flexmodel implements JsonSerializable
         $param_sectorcoupling = null,
         $param_multitimescale = null,
         $flexblox = null,
+        $datasets = null,
     ) {
         $this->id = $id;
         $this->authors = $authors;
@@ -78,8 +80,10 @@ class Flexmodel implements JsonSerializable
         $this->param_sectorcoupling = $param_sectorcoupling;
         $this->param_multitimescale = $param_multitimescale;
         $this->flexblox = $flexblox;
+        $this->datasets = $datasets;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return [
@@ -108,6 +112,7 @@ class Flexmodel implements JsonSerializable
             'param_sectorcoupling' => $this->param_sectorcoupling,
             'param_multitimescale' => $this->param_multitimescale,
             'flexblox' => $this->flexblox,
+            'datasets' => $this->datasets,
         ];
     }
     public function getId()
@@ -243,5 +248,14 @@ class Flexmodel implements JsonSerializable
     }
     public function getFlexblox() {
         return $this->flexblox;
+    }
+    public function getDatasets() {
+        $datasets_string = $this->$datasets;
+
+        // Split the 'datasets' entry into a list
+        $dataset_list = explode($datasets_string, ",");
+
+        return $dataset_list;
+
     }
 }

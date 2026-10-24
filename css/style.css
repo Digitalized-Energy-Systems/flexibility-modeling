@@ -145,6 +145,38 @@ h3 {
 .flexmodellist-header.compact p.usecase { text-align: left; } 
 .flexmodellist-header.compact p.methodology { text-align: left; }
 
+
+.datasetlist-header {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  text-align: center;
+
+}
+/* Compact header for models list: fewer columns to avoid horizontal overflow */
+.datasetlist-header.compact {
+  display: grid;
+  grid-template-columns: 70px 200px 1fr 60px 260px 200px 48px;
+  align-items: center;
+  gap: 10px;
+  /* Match the row padding so header columns line up with content columns */
+  padding: 10px 12px;
+  box-sizing: border-box;
+}
+/* Make header cells align with the row cells: remove internal padding (container handles it) */
+.datasetlist-header.compact p {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: center;
+  font-weight: bold;
+}
+.datasetlist-header.compact p.title { text-align: left; }
+.datasetlist-header.compact p.authors { text-align: left; }
+.datasetlist-header.compact p.usecase { text-align: left; } 
+.datasetlist-header.compact p.methodology { text-align: left; }
+
+
 .parameter-legend {
   display: flex;
   flex-direction: row;
