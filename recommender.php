@@ -18,7 +18,16 @@ $sliderDefault = 0;
   <?php include 'php/include/header.php'; ?>
   <?php include 'php/include/notifications.php'; ?>
 
-  <main style="margin: 0 auto;">
+  <!-- <main style="margin: 0 auto;">
+    <section class="flextree" style="align_item: flex-start;">
+      <select id="assettypes" class="form-control" multiple onchange="updateConfigCode()">
+        <optgroup label="Example Datasets">
+          <option value=" uk dale" selected>UK DALE</option>
+          <option value="greend">GREEND</option>
+          <option value="smart star">Smart*</option>
+      </select>
+    </section> -->
+    
     <section class="flextree" style="align-items: flex-start;">
       <div class="input-container">
         <div class="parameters-container">

@@ -1,9 +1,10 @@
 <?php
 require_once 'php/controller/flexmodels-controller.php';
 
-$pageTitle = "List";
+$pageTitle = "Model List";
 include $abs_path . '/php/include/head.php';
 $_SESSION['currentpage'] = 'models';
+
 
 switch ($sort) {
     case 'year': // Sortierung nach Jahr

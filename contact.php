@@ -19,14 +19,14 @@ $_SESSION['currentpage'] = 'contact';
             <div class="content-box">
                 <h1>Contact</h1>
                 <p>If you have any <a target=_blank href="feedback.php">feedback</a>, ideas, or questions, we welcome
-                    you to contact us via mail.</p>
+                    you to contact us via mail. We will also gladly receive suggestions regarding further flexibility models
+                    or useful data sets that could be included in the recommender. </p>
 
                 <ul>
-                    <li><strong>Dennis Weller</strong> <a href="mailto:dennis.weller@offis.de">dennis.weller at
-                            offis.de</a></li>
                     <li><strong>Emilie Frost</strong> <a href="mailto:emilie.frost@offis.de">emilie.frost at
-                            offis.de</a>
-                    </li>
+                            offis.de</a></li>
+                    <li><strong>Jannik Grotelüschen</strong> <a href=mailto:jannik.grotelueschen@offis.de">jannik.grotelueschen at
+                            offis.de</a></li>
                 </ul>
 
             </div>
